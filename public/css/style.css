@@ -1,6 +1,7 @@
 html, body {
   height: 100%;
   margin: 0;
+
 }
 
 *,
@@ -26,6 +27,11 @@ button {
   color: black;
 }
 
+.main-section {
+  background-color: sky rgb(87, 87, 167)#f4f4f4; /* Replace this with any color you want */
+  padding: 0; /* Optional: gives space around the image */
+} 
+
 footer {
  
 
@@ -33,4 +39,10 @@ footer {
   width: auto;
   max-width: 680px;
   padding: 0 15px;
+}
+
+  margin-top: auto;
+  background-color: #f8f9fa;
+  padding: 10px 0;
+  text-align: center;
 }
