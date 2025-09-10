@@ -1,48 +1,28 @@
-html, body {
-  height: 100%;
-  margin: 0;
-
-}
-
-*,
-*::before,
-*::after {
+html {
   box-sizing: border-box;
 }
-
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+.about-artist-image {
+  max-width: 200px;   /* adjust this number as needed */
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin: 1rem auto;
+}
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  position: relative;
+  background-color: lightgrey;
+  color: rgb(119, 119, 195);
 }
 
-button {
-  background-color: teal;
+h1 {
+  background-color: black;
   color: white;
 }
 
-#testButton {
-  background-color: #ffc107;
-  color: black;
-}
-
-.main-section {
-  background-color: sky rgb(87, 87, 167)#f4f4f4; /* Replace this with any color you want */
-  padding: 0; /* Optional: gives space around the image */
-} 
-
-footer {
- 
-
-.container {
-  width: auto;
-  max-width: 680px;
-  padding: 0 15px;
-}
-
-  margin-top: auto;
-  background-color: #f8f9fa;
-  padding: 10px 0;
-  text-align: center;
+div {
+  background-color: blue;
+  color: white;
 }
