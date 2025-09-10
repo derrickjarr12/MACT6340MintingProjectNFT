@@ -27,9 +27,10 @@ button {
 }
 
 footer {
-  margin-top: auto;
-  width: 100%;
-  background-color: #333;
-  color: white;
-  text-align: center;
-  padding: 10px 0;
+ 
+
+.container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
