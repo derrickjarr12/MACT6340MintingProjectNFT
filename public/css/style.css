@@ -26,3 +26,13 @@ div {
   background-color: blue;
   color: white;
 }
+img-width {
+  max-width: 100%;
+  height: auto;
+  display: block;
+ } 
+.responsive-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

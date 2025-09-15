@@ -1,10 +1,12 @@
 (function() {
     "use strict";
 
-document.querySelector("#testButton").addEventListener("click", handleClick);
+document.querySelector("#contact-form-button").addEventListener("click", subitMail);
 
-function handleClick(){
-    console.log("Thank you for clicking.");
+function subitMail(){
+    console.log("You Clicked the Submit Button.");
 }
+
+
 
 })();
