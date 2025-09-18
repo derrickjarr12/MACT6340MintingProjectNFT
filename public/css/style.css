@@ -22,10 +22,7 @@ h1 {
   color: white;
 }
 
-div {
-  background-color: blue;
-  color: white;
-}
+
 img-width {
   max-width: 100%;
   height: auto;
@@ -35,4 +32,30 @@ img-width {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+.splash-link {
+  display: block;
+  min-height: 100vh;           /* full viewport height */
+  background-image: url('../images/Plasma-Clouds.jpg'); /* match exact filename */
+  background-size: cover;      /* responsive fill */
+  background-position: center; /* center focal point */
+  background-repeat: no-repeat;
+  background-color: #0b0c10;   /* dark fallback that suits your image */
+}
+
+.modal-sheet .modal-dialog {
+  width: 380px;
+  transition: bottom .75s ease-in-out;
+}
+.modal-sheet .modal-footer {
+  padding-bottom: 2rem;
+}
+
+.modal-alert .modal-dialog {
+  width: 380px;
+}
+
+.modal-tour .modal-dialog {
+  width: 380px;
 }
