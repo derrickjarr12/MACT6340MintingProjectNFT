@@ -13,7 +13,7 @@ html {
   margin: 1rem auto;
 }
 body {
-  background-color: lightgrey;
+  background-color: charcoal grey;
   color: rgb(119, 119, 195);
 }
 
@@ -23,16 +23,12 @@ h1 {
 }
 
 
-img-width {
+.img-width {
   max-width: 100%;
   height: auto;
   display: block;
  } 
-.responsive-image {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
+
 
 .splash-link {
   display: block;
@@ -44,18 +40,3 @@ img-width {
   background-color: #0b0c10;   /* dark fallback that suits your image */
 }
 
-.modal-sheet .modal-dialog {
-  width: 380px;
-  transition: bottom .75s ease-in-out;
-}
-.modal-sheet .modal-footer {
-  padding-bottom: 2rem;
-}
-
-.modal-alert .modal-dialog {
-  width: 380px;
-}
-
-.modal-tour .modal-dialog {
-  width: 380px;
-}
