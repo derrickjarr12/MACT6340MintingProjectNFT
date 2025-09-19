@@ -1,3 +1,4 @@
+
 html {
   box-sizing: border-box;
 }
@@ -33,10 +34,18 @@ h1 {
 .splash-link {
   display: block;
   min-height: 100vh;           /* full viewport height */
-  background-image: url('../images/Plasma-Clouds.jpg'); /* match exact filename */
+  background-image: url('../images/SUN_CLOUDS.png'); /* match exact filename */
   background-size: cover;      /* responsive fill */
   background-position: center; /* center focal point */
   background-repeat: no-repeat;
   background-color: #0b0c10;   /* dark fallback that suits your image */
 }
 
+body {
+  font-family: "Audiowide", sans-serif;
+}
+.responsive-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
