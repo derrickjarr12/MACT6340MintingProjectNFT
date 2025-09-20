@@ -49,3 +49,7 @@ body {
   height: auto;
   display: block;
 }
+
+#exampleFormControlTextarea1::placeholder {
+  font-size: 1.25rem; /* or any size you prefer */
+}
