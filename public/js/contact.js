@@ -5,19 +5,21 @@
 
   document
   .querySelector("#contact-form-button")
-    .addEventListener("click", event => {
+    .addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
       let formValid = true;
-      if (!form.checkValidity()) {
+    if (!form.checkValidity()) {
         formValid = false;
       }
       form.classList.add('was-validated');
       if (formValid) {
         sendTheEmail();
       }
+    });
+
       function sendTheEmail() {
-      console.log("You clicked the Submit Button.");
+      console.log("You clicked the submit button.");
       let firstName = document.querySelector("#first-name").value;
       let lastName = document.querySelector("#last-name").value;
       let email = document.querySelector("#mail").value;
@@ -27,19 +29,4 @@
       console.log("Email: " + email);
       console.log("Message: " + message);
     }
-    });
-
-
-
- 
-  
-
-
-
-
-
-
-
-
-
 }());

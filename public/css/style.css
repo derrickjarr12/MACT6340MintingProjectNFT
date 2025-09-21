@@ -53,3 +53,7 @@ body {
 #exampleFormControlTextarea1::placeholder {
   font-size: 1.25rem; /* or any size you prefer */
 }
+
+.footer-extra-margin {
+  margin-bottom: 80px; /* or any value you want */
+}
