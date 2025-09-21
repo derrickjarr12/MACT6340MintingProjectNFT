@@ -30,7 +30,7 @@
         </ul>
       </nav>
   </header>
-    Contact form
+   Contact form
      <form id="contact-form" class="needs-validation" novalidate>
       <div class="row m-5">
   <div class="col">
@@ -40,6 +40,12 @@
     <input id="last-name" type="text" class="form-control" placeholder="Last name" aria-label="Last name" required>
   </div>
 </div>
+ <!-- Phone (Optional) -->
+        <div class="row m-5">
+          <div class="mb-3">
+            <input type="tel" class="form-control" id="phone" placeholder="Phone (Optional)">
+          </div>
+        </div>
 <div class="row m-5">
   <div class="mb-3">
    <input id="mail" type="email" class="form-control" placeholder="Email address" aria-describedby="emailHelp"required>
@@ -56,9 +62,8 @@
   <button id="contact-form-button" class="btn btn-primary">Submit</button>
 </form>
 
-  
-
 <script src="./js/contact.js"></script>
+
 
   <footer class="mt-5 mb-4 footer-extra-margin">
     <ul class="nav justify-content-center border-bottom pb-3 mb-5">
@@ -67,26 +72,13 @@
       <li class="nav-item"><a href="gallery.html" class="nav-link px-2 text-muted">Gallery</a></li>
       <li class="nav-item"><a href="contact.html" class="nav-link px-2 text-muted">Contact</a></li>
     </ul>
+    <ul class="nav justify-content-center border-bottom pb-5 mb-5">
+      <li class="nav-item"><a href="https://www.instagram.com/seizdisproductions/" class="nav-link px-2 text-muted">Instagram</a></li>
+      <li class="nav-item"><a href="https://www.facebook.com/seizdisproductions" class="nav-link px-2 text-muted">Facebook</a></li>
+      <li class="nav-item"><a href="https://www.linkedin.com/in/derrick-jarrell-9b4b9820b/" class="nav-link px-2 text-muted">LinkedIn</a></li>
+
+   </ul>
     <p class="text-center text-muted">&copy; 2025 Seiz Dis Productions, Inc</p>
-  
-<section id="contact"></section>
-  <h2>Contact Us</h2>
-  <form action="/submit-form" method="POST">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required>
-
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-
-    <label for="message">Message:</label>
-    <textarea id="message" name="message" required></textarea>
-
-    <button type="submit">Send Message</button>
-  </form>
-</section>
-      <li class="nav-item"><a href="contact.html" class="nav-link px-2 text-muted">Contact</a></li>
-    </ul>
-    <p class="text-center text-muted">&copy; 2025 Derrick Jarrell</p>
   </footer>
 
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
