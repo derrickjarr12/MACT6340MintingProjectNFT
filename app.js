@@ -1,4 +1,6 @@
 import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
 const port = 3000;
 
@@ -15,5 +17,6 @@ app.post("/mail", (req, res) => {
 });
 
 app.listen(port, () => {
+  console.log(process.env.SENSITIVE_DATA);
   console.log(`Example app listening on port ${port}`);
 });
