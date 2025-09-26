@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
   res.render("index.ejs");
 });
 
-app.get("/project", (req, res) =>
+app.get("/featured-project", (req, res) =>
   res.render("project.ejs")
 );
 app.get("/gallery", (req, res) =>
@@ -23,7 +23,11 @@ app.get("/gallery", (req, res) =>
 );
 app.get("/contact", (req, res) =>
   res.render("contact.ejs")
-)
+);
+
+app.get("/newProject", (req, res) =>
+  res.render("newProject.ejs")
+);
 app.post("/mail", async (req, res) => {
   await utils
   .sendMessage(req.body.sub, req.body.txt)
