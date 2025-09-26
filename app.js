@@ -6,15 +6,24 @@ dotenv.config();
 
 const app = express();
 const port = 3000;
+app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.static("public"));
 // app.use(express.urlencoded({ extended: true }));
 
-// // app.get('/', (req, res) => {
-// //   res.send('Hello World!')
-// // });
+app.get('/', (req, res) => {
+  res.render("index.ejs");
+});
 
-
+app.get("/project", (req, res) =>
+  res.render("project.ejs")
+);
+app.get("/gallery", (req, res) =>
+  res.render("gallery.ejs")
+);
+app.get("/contact", (req, res) =>
+  res.render("contact.ejs")
+)
 app.post("/mail", async (req, res) => {
   await utils
   .sendMessage(req.body.sub, req.body.txt)
@@ -29,5 +38,7 @@ app.post("/mail", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+
+console.log(`Server running on http://localhost:${port}`);
 });
+
