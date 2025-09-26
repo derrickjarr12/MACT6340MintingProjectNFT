@@ -6,12 +6,42 @@ html {
   box-sizing: inherit;
 }
 .about-artist-image {
-  max-width: 200px;   /* adjust this number as needed */
+  max-width: 300px;   /* increased size */
   width: 100%;
   height: auto;
   border-radius: 8px;
   display: block;
-  margin: 1rem auto;
+  margin: 2rem auto;  /* increased margin */
+}
+
+/* About Artist Section Box */
+.about-artist-section {
+  background-color: rgba(255, 255, 255, 0.1); /* semi-transparent box */
+  border: 2px solid #1a237e; /* navy blue border */
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 3rem auto; /* increased margin from other elements */
+  max-width: 900px;
+  backdrop-filter: blur(5px); /* subtle blur effect */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.about-artist-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.about-artist-text {
+  flex: 2;
+  min-width: 300px;
+}
+
+.about-artist-image-container {
+  flex: 1;
+  min-width: 250px;
+  text-align: center;
 }
 body {
   background-color: charcoal grey;
@@ -42,7 +72,7 @@ h1 {
 }
 
 body {
-  font-family: "Audiowide", sans-serif;
+  font-family: "Freckle Face", cursive;
 }
 .responsive-image {
   max-width: 100%;
@@ -56,4 +86,8 @@ body {
 
 .footer-extra-margin {
   margin-bottom: 80px; /* or any value you want */
+}
+
+body {
+  background-color: #1a237e; /* static navy blue */
 }
