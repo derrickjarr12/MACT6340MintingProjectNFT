@@ -22,7 +22,7 @@
   <!-- Splash Screen -->
   <div id="splash" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;background:url('./images/Plasma-Clouds.jpg') center center/cover no-repeat;display:flex;align-items:center;justify-content:center;flex-direction:column;">
     <h1 class="Freckle-Face" style="color:rgb(205, 226, 12);font-size:3rem; ">Plasma Clouds</h1>
-    <a href="project.html" style="color:white;font-size:1.5rem;text-shadow:2px 2px 8px #000;position:absolute;bottom:40px;">Enter Site</a>
+    <a href="/featured-project" style="color:white;font-size:1.5rem;text-shadow:2px 2px 8px #000;position:absolute;bottom:40px;">Enter Site</a>
     </div>
     <style>
       #splash {
@@ -35,25 +35,24 @@
     }, 6000); // 6 seconds
   </script>
 
-  <!-- Main Content -->
    <!-- Main Content -->
   <header class="p-3 text-bg-dark">
     <div class="container">
       <nav class="d-flex flex-wrap align-items-center justify-content-between">
-        <a href="newProject.html" class="text-white text-decoration-none fs-4">Projects</a>
+        <a href="Projects" class="text-white text-decoration-none fs-4">Projects</a>
       <ul class="nav mb-0">
     <li class="nav-item"><a href="#about-artist" class="nav-link px-2 text-white">About</a></li>
-          <li class="nav-item"><a href="index.ejs" class="nav-link px-2 text-warning">Home</a></li>
-          <li class="nav-item"><a href="project.ejs" class="nav-link px-2 text-white">Featured Project</a></li>
-          <li class="nav-item"><a href="gallery.ejs" class="nav-link px-2 text-white">Gallery</a></li>
-          <li class="nav-item"><a href="contact.ejs" class="nav-link px-2 text-white">Contact</a></li>
+          <li class="nav-item"><a href="/home" class="nav-link px-2 text-warning">Home</a></li>
+          <li class="nav-item"><a href="/featured-project" class="nav-link px-2 text-white">Featured Project</a></li>
+          <li class="nav-item"><a href="/gallery" class="nav-link px-2 text-white">Gallery</a></li>
+          <li class="nav-item"><a href="/contact" class="nav-link px-2 text-white">Contact</a></li>
         </ul>
       </nav>
   </header>
     <main class="py-5">
   <div class="container text-center">
     <section class="mb-5">
-      <a href="project.ejs" class="d-inline-block">
+      <a href="/featured-project" class="d-inline-block">
         <h2 class="audiowide-regular" style="color:rgb(205, 226, 12);font-size:3rem; ">Featured Project</h>
         <img src="./images/Plasma-Clouds.jpg"
              alt="Plasma Clouds featured project"
@@ -76,7 +75,8 @@
       <div class="col-lg-7 text-start">
 
 
-  <div style="height: 200px;"></div>
+
+  <div class="col-lg-7 text-start">
   <h2 id="about-artist" class="mb-3 mt-5">Derrick Jarrell</h2>  
         <p class="lead mb-3">
           At my core, I am three things: an artist, a rebel, and an entrepreneur. Creativity and curiosity have always been my greatest loves, yet for much of my journey, I felt confined by structures that dictated how I should express them.
@@ -84,13 +84,14 @@
         <p class="lead mb-3">
           Music has always been my first love—the sound, the why, the how—it is a part of me. Yet, the world of music has been changing. I realized I didn’t want to be just another musician; I want to question, to innovate, and to reimagine the role of music and art in a shifting culture.
         </p>
+        <a href="contact" class="btn btn-warning mt-3">Contact Me</a>
       </div>
       <div class="col-lg-5 text-end">
         <img src="./images/about-artist-image.jpg" alt="About the Artist"
              class="about-artist-image">
       </div>
     </div>
-  </div>
+  <div class="row align-items-center justify-content-between mt-4">
 </main>
     </p>
   </div>
@@ -100,10 +101,10 @@
   </main>
   <footer class="py-3 my-4">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-      <li class="nav-item"><a href="index" class="nav-link px-2 text-muted">Home</a></li>
-      <li class="nav-item"><a href="project" class="nav-link px-2 text-muted">Featured Project</a></li>
-      <li class="nav-item"><a href="gallery" class="nav-link px-2 text-muted">Gallery</a></li>
-      <li class="nav-item"><a href="contact" class="nav-link px-2 text-muted">Contact</a></li>
+      <li class="nav-item"><a href="/home" class="nav-link px-2 text-muted">Home</a></li>
+      <li class="nav-item"><a href="/featured-project" class="nav-link px-2 text-muted">Featured Project</a></li>
+      <li class="nav-item"><a href="/gallery" class="nav-link px-2 text-muted">Gallery</a></li>
+      <li class="nav-item"><a href="/contact" class="nav-link px-2 text-muted">Contact</a></li>
     </ul>
     <p class="text-center text-muted">&copy; 2025 Seiz Dis Productions, Inc</p>
   </footer>
