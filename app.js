@@ -11,12 +11,12 @@ app.use(express.json());
 app.use(express.static("public"));
 // app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
+app.get("/home", (req, res) => {
   res.render("index.ejs");
 });
 
 app.get("/featured-project", (req, res) =>
-  res.render("project.ejs")
+  res.render("featuredProject.ejs")
 );
 app.get("/gallery", (req, res) =>
   res.render("gallery.ejs")
@@ -25,8 +25,8 @@ app.get("/contact", (req, res) =>
   res.render("contact.ejs")
 );
 
-app.get("/newProject", (req, res) =>
-  res.render("newProject.ejs")
+app.get("/projects", (req, res) =>
+  res.render("projects.ejs")
 );
 app.post("/mail", async (req, res) => {
   await utils
@@ -41,8 +41,7 @@ app.post("/mail", async (req, res) => {
   
 });
 
-app.listen(port, () => {
 
-console.log(`Server running on http://localhost:${port}`);
-});
+app.listen(3000, () => console.log('Example app listening on port 3000!'));
 
+console.log(`Server running on http://localhost:3000`);
