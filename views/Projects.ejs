@@ -16,10 +16,16 @@
     <header>
     <%- include('header'); %>
   </header>
-
-
+  <div class="container">
+  <div class="spacer"></div>
     <div>Projects</div>
-  
+      <% projectArray.forEach(item, index) => { %>
+        <div>
+          <a href="/project/<%= index + 1 %>"><%= item %></a>
+        </div>
+      <% }); %>
+  </div>
+
 <script type="module" src="./js/index.js"></script>
 
 
