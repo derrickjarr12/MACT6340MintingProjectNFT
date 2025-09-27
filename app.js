@@ -2,14 +2,16 @@ import express from "express";
 import dotenv from "dotenv";
 import * as utils from "./utils/utils.js";
 dotenv.config();
-
+let data =["Project 1", "Project 2", "Project 3"];
 
 const app = express();
 const port = 3000;
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.static("public"));
-// app.use(express.urlencoded({ extended: true }));
+
+
+
 
 app. get("/", (_req, res) => {
   res.render("index.ejs");
@@ -29,7 +31,7 @@ app.get("/contact", (_req, res) =>
 );
 
 app.get("/projects", (_req, res) =>
-  res.render("projects.ejs")
+  res.render("projects.ejs", { projectArray: data })
 );
 app.post("/mail", async (req, res) => {
   await utils
@@ -46,4 +48,3 @@ app.post("/mail", async (req, res) => {
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-// console.log(`Example app listening on port ${port}!`);65
