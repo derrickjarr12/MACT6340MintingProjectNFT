@@ -11,21 +11,24 @@ app.use(express.json());
 app.use(express.static("public"));
 // app.use(express.urlencoded({ extended: true }));
 
-app.get("/home", (req, res) => {
+app. get("/", (_req, res) => {
   res.render("index.ejs");
 });
+app.get("/home", (_req, res) => {
+  res.render("index.ejs")
+});
 
-app.get("/featured-project", (req, res) =>
+app.get("/featured-project", (_req, res) =>
   res.render("featuredProject.ejs")
 );
-app.get("/gallery", (req, res) =>
+app.get("/gallery", (_req, res) =>
   res.render("gallery.ejs")
 );
-app.get("/contact", (req, res) =>
+app.get("/contact", (_req, res) =>
   res.render("contact.ejs")
 );
 
-app.get("/projects", (req, res) =>
+app.get("/projects", (_req, res) =>
   res.render("projects.ejs")
 );
 app.post("/mail", async (req, res) => {
@@ -34,7 +37,7 @@ app.post("/mail", async (req, res) => {
   .then(() => {
     res.send({result: "success"});
   })
-  .catch((error) => {
+  .catch((_error) => {
     res.send({result: "failure"});
   });
   // console.log("mail button clicked");
@@ -42,6 +45,5 @@ app.post("/mail", async (req, res) => {
 });
 
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'));
-
-console.log(`Server running on http://localhost:3000`);
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+// console.log(`Example app listening on port ${port}!`);65
