@@ -26,9 +26,10 @@
     <div>Projects</div>
       <% projectArray.forEach(item, index) => { %>
         <div>
+          <!-- <%=item %> -->
           <a href="/project/<%= index + 1 %>"><%= item %></a>
         </div>
-      <% }); %>
+      <% });%>
   </div>
 
 <script type="module" src="./js/index.js"></script>
