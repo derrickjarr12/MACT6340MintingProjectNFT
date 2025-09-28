@@ -49,7 +49,7 @@
     console.log("Email: " + email);
     console.log("Message: " + message);
 
-;
+
   try {
       // Actually send the email
       const response = await fetch('/mail', {
