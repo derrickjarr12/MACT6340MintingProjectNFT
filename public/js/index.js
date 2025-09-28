@@ -1,3 +1,4 @@
+
 (function() {
     "use strict";
 
@@ -5,6 +6,8 @@ document.querySelector("#contact-form-button").addEventListener("click", subitMa
 
 function subitMail(){
     console.log("You Clicked the Submit Button.");
+
+
 }
 
 

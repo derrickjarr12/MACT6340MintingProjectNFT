@@ -1,3 +1,4 @@
+
 import express from "express";
 import dotenv from "dotenv";
 import * as utils from "./utils/utils.js";
@@ -21,29 +22,29 @@ app.get("/home", (_req, res) => {
 });
 
 app.get("/featured-project", (_req, res) =>
-  res.render("featuredProject.ejs")
+    res.render("featuredProject.ejs")
 );
 app.get("/gallery", (_req, res) =>
-  res.render("gallery.ejs")
+    res.render("gallery.ejs")
 );
 app.get("/contact", (_req, res) =>
-  res.render("contact.ejs")
+    res.render("contact.ejs")
 );
 
-app.get("/projects", (_req, res) =>
-  res.render("projects.ejs", { projectArray: data })
+app.get('/projects', (_req, res) =>
+    res.render('projects', { projectArray: data })
 );
 app.post("/mail", async (req, res) => {
   await utils
-  .sendMessage(req.body.sub, req.body.txt)
-  .then(() => {
-    res.send({result: "success"});
-  })
-  .catch((_error) => {
-    res.send({result: "failure"});
-  });
+      .sendMessage(req.body.sub, req.body.txt)
+      .then(() => {
+        res.send({result: "success"});
+      })
+      .catch((_error) => {
+        res.send({result: "failure"});
+      });
   // console.log("mail button clicked");
-  
+
 });
 
 
