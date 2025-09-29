@@ -71,8 +71,34 @@ h1 {
   background-color: #0b0c10;   /* dark fallback that suits your image */
 }
 
+/* Splash Page Styling */
+.splash-container {
+  min-height: 100vh;
+  background-image: url('../images/Plasma-Clouds.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a237e;
+}
+
+.splash-content {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 3rem;
+  border-radius: 15px;
+  color: white;
+}
+
 body {
   font-family: "Freckle Face", cursive;
+  scroll-behavior: smooth; /* Add smooth scrolling */
+}
+
+/* Offset for fixed header when linking to sections */
+#about-artist {
+  scroll-margin-top: 100px; /* Adjust this value based on your header height */
 }
 .responsive-image {
   max-width: 100%;
