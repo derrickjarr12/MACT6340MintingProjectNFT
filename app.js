@@ -34,6 +34,13 @@ app.get("/contact", (_req, res) =>
 app.get('/projects', (_req, res) =>
     res.render('projects', { projectArray: data })
 );
+
+app.get("projects/:id", (req, res) => {
+  let id = req.params.id;
+  if(id > data.length) {
+    throw new Error("No project with that ID");
+  }
+});
 app.post("/mail", async (req, res) => {
   await utils
       .sendMessage(req.body.sub, req.body.txt)
@@ -48,4 +55,4 @@ app.post("/mail", async (req, res) => {
 });
 
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
