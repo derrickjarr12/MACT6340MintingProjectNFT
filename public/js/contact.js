@@ -1,9 +1,10 @@
 (function () {
   "use strict";
-
-  let form = document.querySelector('#contact-form');
-
-  document
+let form = document.querySelector('#contact-form');
+form.addEventListener('submit', (event) => {
+  // event handling code
+});
+letform
     .querySelector("#contact-form-button")
     .addEventListener("click", (event) => {
       event.preventDefault();
