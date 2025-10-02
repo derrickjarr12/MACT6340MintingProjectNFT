@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="./images/SUN.ico">
-    <title>New Project Page</title>
+    <title>Project Details</title>
     <meta name="author" content="Derrick Jarrell">
-    <meta name="description" content="A page to display new art projects">
+    <meta name="description" content="Individual project details page">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=Audiowide&display=swap" rel="stylesheet">
@@ -17,28 +17,29 @@
 </head>
 
 <body>
-   <%- include('partials/header'); %>
+   <header>
+        <%- include('partials/header'); %>
+  </header>
 
   <div class="container">
-    <div class="spacer"></div>
+  <div class="spacer"></div>
+    <div>Project Details</div>
     
-    <div class="row">
-      <div class="col-12">
-        <h1 class="text-center mb-5">My Projects</h1>
-      </div>
-    </div>
-
-    <div class="row justify-content-center">
-      <div class="col-12 text-center">
-        <% projectArray.forEach((project, index) => { %>
-          <a href="/project/<%= index + 1 %>" class="btn btn-primary btn-lg m-2"><%= project %></a>
-        <% }); %>
-      </div>
-    </div>
+    <% if (which && projectArray && projectArray[which - 1]) { %>
+        <h2><%= projectArray[which - 1] %></h2>
+        <p>This is the details page for <%= projectArray[which - 1] %>.</p>
+    <% } else { %>
+        <h2>Project not found</h2>
+        <p>The requested project could not be found.</p>
+    <% } %>
 
   </div>
 
-  <%- include('partials/footer'); %>
+  <footer class="mt-5 mb-4 footer-extra-margin">
+      <%- include('partials/footer'); %>
+  </footer>
   
 </body>
 </html>
+
+

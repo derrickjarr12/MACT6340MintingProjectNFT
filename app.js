@@ -31,7 +31,7 @@ app.get("/contact", (_req, res) =>
     res.render("contact.ejs")
 );
 
-app.get('/projects', (_req, res) =>
+app.get('/Projects', (_req, res) =>
     res.render('projects.ejs', { projectArray: data })
 );
 
@@ -52,6 +52,20 @@ app.post("/mail", async (req, res) => {
       .catch((_error) => {
         res.send({result: "failure"});
       });
+});
+
+// Error handling middleware
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Error stack:', err.stack);
+  console.error('Error message:', err.message);
+  res.status(500).send('Something went wrong!');
+});
+
+// 404 handler
+app.use((req, res) => {
+  console.log('404 - Page not found:', req.url);
+  res.status(404).send('Page not found');
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
