@@ -6,44 +6,103 @@ html {
   box-sizing: inherit;
 }
 
-/* Combine all body styles into one */
+/* Modern NFT Project Body Styles */
 body {
-  background-color: #1a237e; /* navy blue */
-  color: rgb(119, 119, 195);
-  font-family: "Freckle Face", cursive;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #333;
+  font-family: "Orbitron", "Arial", sans-serif;
   scroll-behavior: smooth;
+  line-height: 1.6;
+}
+
+/* Modern Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Orbitron", "Arial", sans-serif;
+  font-weight: 700;
+  color: #333;
 }
 
 h1 {
-  background-color: black;
-  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
-/* About Artist Styles */
+/* NFT Card Animations */
+.card {
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Gradient Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Modern About Artist Styles */
 .about-artist-image {
-  max-width: 300px;
+  max-width: 400px;
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 15px;
   display: block;
   margin: 2rem auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.about-artist-image:hover {
+  transform: scale(1.05);
 }
 
 .about-artist-section {
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 2px solid #1a237e;
-  border-radius: 15px;
-  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid transparent;
+  border-radius: 20px;
+  padding: 3rem;
   margin: 3rem auto;
-  max-width: 900px;
-  backdrop-filter: blur(5px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  max-width: 1000px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.about-artist-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  padding: 2px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  z-index: -1;
 }
 
 .about-artist-content {
   display: flex;
-  align-items: flex-start;
-  gap: 2rem;
+  align-items: center;
+  gap: 3rem;
   flex-wrap: wrap;
 }
 
@@ -58,15 +117,7 @@ h1 {
   text-align: center;
 }
 
-/* Image Styles */
-.img-width,
-.responsive-image {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Splash Styles */
+/* Modern Splash Styles */
 .splash-link {
   display: block;
   min-height: 100vh;
@@ -74,7 +125,18 @@ h1 {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #0b0c10;
+  position: relative;
+}
+
+.splash-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }
 
 .splash-container {
@@ -86,33 +148,225 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1a237e;
+  position: relative;
+}
+
+.splash-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
 }
 
 .splash-content {
-  background-color: rgba(0, 0, 0, 0.7);
   padding: 3rem;
-  border-radius: 15px;
+  border-radius: 20px;
   color: white;
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* NFT Gallery Styles */
+.gallery-item {
+  transition: all 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item .card-img-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-item .card-img-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.gallery-item:hover .card-img-wrapper::before {
+  opacity: 1;
+}
+
+/* Project Card Styles */
+.project-card {
+  transition: all 0.3s ease;
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.project-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.project-card .fas {
+  transition: all 0.3s ease;
+}
+
+.project-card:hover .fas {
+  transform: scale(1.2) rotate(10deg);
+}
+
+/* Navigation Enhancements */
+.navbar {
+  backdrop-filter: blur(10px);
+  background: rgba(33, 37, 41, 0.95) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-link {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  transform: translateY(-2px);
+  color: #667eea !important;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+  width: 80%;
 }
 
 /* Layout Utilities */
 .spacer {
-  height: 100px;
+  height: 120px;
 }
 
 /* Anchor offset for fixed header */
 #about-artist {
-  scroll-margin-top: 100px;
+  scroll-margin-top: 120px;
 }
 
-/* Form Styles */
+/* Modern Form Styles */
+.form-control {
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+  background: white;
+}
+
 #exampleFormControlTextarea1::placeholder {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+/* Contact Form Enhancements */
+.contact-form {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
 }
 
 /* Footer Styles */
 .footer-extra-margin {
   margin-bottom: 80px;
+}
+
+footer {
+  background: rgba(33, 37, 41, 0.95) !important;
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Image Styles */
+.img-width,
+.responsive-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* NFT Badge Styles */
+.badge {
+  background: linear-gradient(135deg, #667eea, #764ba2) !important;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+/* Hero Section Styles */
+.display-3, .display-4, .display-5 {
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-artist-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .spacer {
+    height: 80px;
+  }
+  
+  .splash-content {
+    padding: 2rem;
+    margin: 1rem;
+  }
+}
+
+/* Container Enhancements */
+.container {
+  position: relative;
+  z-index: 1;
 }
   
