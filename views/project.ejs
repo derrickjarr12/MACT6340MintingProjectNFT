@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="./images/SUN.ico">
+    <link rel="icon" type="image/x-icon" href="/images/SUN.ico">
     <title>Project Details</title>
     <meta name="author" content="Derrick Jarrell">
     <meta name="description" content="Individual project details page">
@@ -13,33 +13,126 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=Audiowide&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Eater&family=Freckle+Face&family=Rubik+80s+Fade&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        /* Project-specific background colors with good text contrast */
+        .project-1 { 
+            background-color: #FFD700; /* Gold */
+            color: #000; /* Black text for visibility */
+            min-height: 100vh;
+        }
+        .project-2 { 
+            background-color: #F5F5DC; /* Cream */
+            color: #000; /* Black text for visibility */
+            min-height: 100vh;
+        }
+        .project-3 { 
+            background-color: #FFFF00; /* Yellow */
+            color: #000; /* Black text for visibility */
+            min-height: 100vh;
+        }
+        /* Ensure navigation and footer maintain their styling */
+        .project-1 nav, .project-2 nav, .project-3 nav,
+        .project-1 footer, .project-2 footer, .project-3 footer {
+            background-color: #212529 !important; /* Keep dark nav/footer */
+        }
+        /* Make sure content is readable */
+        .project-content {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+    </style>
 </head>
 
-<body>
-   <header>
-        <%- include('partials/header'); %>
-  </header>
+<body class="project-<%= which || 1 %>">
+   <%- include('partials/header'); %>
 
   <div class="container">
-  <div class="spacer"></div>
-    <div>Project Details</div>
+    <div class="spacer"></div>
     
-    <% if (which && projectArray && projectArray[which - 1]) { %>
-        <h2><%= projectArray[which - 1] %></h2>
-        <p>This is the details page for <%= projectArray[which - 1] %>.</p>
-    <% } else { %>
-        <h2>Project not found</h2>
-        <p>The requested project could not be found.</p>
-    <% } %>
+    <div class="project-content">
+      <% if (which && projectArray && projectArray[which - 1]) { %>
+          <div class="mb-3">
+            <a href="/Projects" class="btn btn-outline-secondary">← Back to All Projects</a>
+          </div>
+          <h1 class="text-center mb-4"><%= projectArray[which - 1] %></h1>
+          <p class="lead">This is the details page for <%= projectArray[which - 1] %>.</p>
+          
+          <!-- Project-specific content -->
+          <% if (which == 1) { %>
+              <div class="row mt-4">
+                  <div class="col-md-6">
+                      <h3>Project 1 Features</h3>
+                      <ul class="list-group list-group-flush">
+                          <li class="list-group-item">Gold-themed design</li>
+                          <li class="list-group-item">Premium quality</li>
+                          <li class="list-group-item">Exclusive content</li>
+                      </ul>
+                  </div>
+                  <div class="col-md-6">
+                      <h3>Details</h3>
+                      <p>This is Project 1 with a beautiful gold theme. The content is designed to be visually appealing while maintaining excellent readability.</p>
+                  </div>
+              </div>
+          <% } else if (which == 2) { %>
+              <div class="row mt-4">
+                  <div class="col-md-6">
+                      <h3>Project 2 Features</h3>
+                      <ul class="list-group list-group-flush">
+                          <li class="list-group-item">Cream-colored elegance</li>
+                          <li class="list-group-item">Sophisticated design</li>
+                          <li class="list-group-item">Professional look</li>
+                      </ul>
+                  </div>
+                  <div class="col-md-6">
+                      <h3>Details</h3>
+                      <p>This is Project 2 with a sophisticated cream theme. The design emphasizes elegance and professional aesthetics.</p>
+                  </div>
+              </div>
+          <% } else if (which == 3) { %>
+              <div class="row mt-4">
+                  <div class="col-md-6">
+                      <h3>Project 3 Features</h3>
+                      <ul class="list-group list-group-flush">
+                          <li class="list-group-item">Bright yellow energy</li>
+                          <li class="list-group-item">Dynamic presentation</li>
+                          <li class="list-group-item">Creative approach</li>
+                      </ul>
+                  </div>
+                  <div class="col-md-6">
+                      <h3>Details</h3>
+                      <p>This is Project 3 with an energetic yellow theme. The bright design conveys creativity and dynamic energy.</p>
+                  </div>
+              </div>
+          <% } %>
+          
+          <!-- Call to Action -->
+          <div class="row mt-5">
+            <div class="col-12 text-center">
+              <hr class="mb-4">
+              <h4>Interested in This Project?</h4>
+              <p class="mb-4">Contact us to learn more about acquiring this NFT artwork.</p>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                <a href="/contact" class="btn btn-primary btn-lg">Contact Artist</a>
+                <a href="/Projects" class="btn btn-outline-secondary btn-lg">View More Projects</a>
+              </div>
+            </div>
+          </div>
+          
+      <% } else { %>
+          <h2>Project not found</h2>
+          <p>The requested project could not be found.</p>
+      <% } %>
+    </div>
 
   </div>
 
-  <footer class="mt-5 mb-4 footer-extra-margin">
-      <%- include('partials/footer'); %>
-  </footer>
+  <%- include('partials/footer'); %>
   
 </body>
 </html>
+
 
 

@@ -4,7 +4,7 @@ let form = document.querySelector('#contact-form');
 form.addEventListener('submit', (event) => {
   // event handling code
 });
-letform
+form
     .querySelector("#contact-form-button")
     .addEventListener("click", (event) => {
       event.preventDefault();

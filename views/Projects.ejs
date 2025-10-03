@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="./images/SUN.ico">
-    <title>New Project Page</title>
+    <link rel="icon" type="image/x-icon" href="/images/SUN.ico">
+    <title>projects Page</title>
     <meta name="author" content="Derrick Jarrell">
     <meta name="description" content="A page to display new art projects">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=Audiowide&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Eater&family=Freckle+Face&family=Rubik+80s+Fade&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
@@ -24,21 +25,106 @@
     
     <div class="row">
       <div class="col-12">
-        <h1 class="text-center mb-5">My Projects</h1>
+        <h1 class="text-center mb-3 display-4">NFT Project Collection</h1>
+        <p class="text-center lead mb-5">Explore our exclusive digital artworks and blockchain-verified NFT collections</p>
       </div>
     </div>
 
-    <div class="row justify-content-center">
-      <div class="col-12 text-center">
-        <% projectArray.forEach((project, index) => { %>
-          <a href="/project/<%= index + 1 %>" class="btn btn-primary btn-lg m-2"><%= project %></a>
-        <% }); %>
+    <div class="row g-4">
+      <% 
+        const projectDetails = [
+          {
+            icon: 'fas fa-crown',
+            gradient: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
+            description: 'Premium gold-themed NFT collection featuring luxury digital artworks with exclusive blockchain verification.',
+            badge: 'Premium'
+          },
+          {
+            icon: 'fas fa-palette',
+            gradient: 'linear-gradient(135deg, #F5F5DC 0%, #DEB887 100%)',
+            description: 'Sophisticated cream-colored digital art pieces emphasizing elegance and professional aesthetic design.',
+            badge: 'Elegant'
+          },
+          {
+            icon: 'fas fa-bolt',
+            gradient: 'linear-gradient(135deg, #FFFF00 0%, #FFD700 100%)',
+            description: 'High-energy yellow-themed creative collection showcasing dynamic digital art and innovative design.',
+            badge: 'Dynamic'
+          }
+        ];
+      %>
+      
+      <% projectArray.forEach((project, index) => { %>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100 shadow-lg project-card" style="transition: transform 0.3s ease, box-shadow 0.3s ease;">
+            <div class="card-img-top position-relative" style="height: 200px; background: <%= projectDetails[index]?.gradient || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' %>; display: flex; align-items: center; justify-content: center;">
+              <i class="<%= projectDetails[index]?.icon || 'fas fa-image' %> fa-4x text-white opacity-75"></i>
+              <span class="badge bg-dark position-absolute top-0 end-0 m-3"><%= projectDetails[index]?.badge || 'NFT' %></span>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold"><%= project %></h5>
+              <p class="card-text flex-grow-1">
+                <%= projectDetails[index]?.description || `Unique NFT artwork featuring ${project.toLowerCase()} with blockchain verification and digital authenticity.` %>
+              </p>
+              <div class="mt-auto">
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-muted">Collection #<%= String(index + 1).padStart(3, '0') %></small>
+                  <a href="/Projects/<%= index + 1 %>" class="btn btn-primary">View Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+
+    <!-- Call to Action Section -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="card bg-light">
+          <div class="card-body text-center py-5">
+            <h3 class="card-title mb-4">Ready to Start Your NFT Collection?</h3>
+            <p class="card-text lead mb-4">
+              Each project represents hours of creative work and comes with blockchain verification. 
+              Contact us to learn more about acquiring these unique digital artworks.
+            </p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+              <a href="/project" class="btn btn-primary btn-lg me-md-2">View Featured Project</a>
+              <a href="/contact" class="btn btn-outline-primary btn-lg">Contact Artist</a>
+              <a href="/gallery" class="btn btn-outline-secondary btn-lg">Browse Gallery</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
   </div>
 
   <%- include('partials/footer'); %>
+  
+  <style>
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    
+    .project-card .fas {
+      transition: transform 0.3s ease;
+    }
+    
+    .project-card:hover .fas {
+      transform: scale(1.2) rotate(5deg);
+    }
+    
+    .badge {
+      font-size: 0.75rem;
+    }
+    
+    .card-img-top {
+      border-radius: 0.375rem 0.375rem 0 0;
+      overflow: hidden;
+    }
+  </style>
   
 </body>
 </html>

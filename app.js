@@ -19,7 +19,7 @@ app.get("/home", (_req, res) => {
   res.render("index.ejs");
 });
 
-app.get("/featured-project", (_req, res) => {
+app.get("/project", (_req, res) => {
   res.render("featuredProject.ejs");
 });
 
@@ -35,10 +35,10 @@ app.get('/Projects', (_req, res) =>
     res.render('projects.ejs', { projectArray: data })
 );
 
-app.get("/project/:id", (req, res) => {
-  let id = req.params.id;
-  if(id > data.length) {
-    throw new Error("No project with that ID");
+app.get("/Projects/:id", (req, res) => {
+  let id = parseInt(req.params.id);
+  if(isNaN(id) || id < 1 || id > data.length) {
+    return res.status(404).render("errors/404.ejs");
   }
   res.render("project.ejs", {projectArray: data, which: id});
 });
