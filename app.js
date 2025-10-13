@@ -3,7 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import * as utils from "./utils/utils.js";
 dotenv.config();
-let data =["Project 1", "Project 2", "Project 3"];
+let data =["Aurora", "Flares", "Solar winds"];
 
 const app = express();
 const port = 3000;
