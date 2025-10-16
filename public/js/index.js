@@ -5,39 +5,15 @@
     let userAddress = null;
     let connect = document.querySelector('#wallet-connect');
 
-    // Check if wallet is already connected when page loads
-    checkIfWalletIsConnected();
-
-    async function checkIfWalletIsConnected() {
-        if (typeof window.ethereum !== 'undefined') {
-            try {
-                const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-                if (accounts.length > 0) {
-                    userAddress = accounts[0];
-                    updateWalletDisplay();
-                    console.log("Wallet already connected:", userAddress);
-                }
-            } catch (error) {
-                console.error("Error checking wallet connection:", error);
-            }
-        }
-    }
-
-    function updateWalletDisplay() {
-        if (userAddress) {
-            let walletString = userAddress.substring(0, 5) + "..." + userAddress.substring(38, 42);
-            connect.innerHTML = walletString;
-        } else {
-            connect.innerHTML = "Connect Wallet";
-        }
-    }
+    connectWallet();
 
     async function connectWallet() {
         if (typeof window.ethereum !== 'undefined') {
             try {
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 userAddress = accounts[0];
-                updateWalletDisplay();
+                let walletString = userAddress.substring(0, 5) + "..." + userAddress.substring(38, 42);
+                connect.innerHTML = walletString;
                 console.log("Wallet connected:", userAddress);
                 return userAddress;
             } catch (error) {
@@ -55,27 +31,15 @@
         }
     }
 
-    document.querySelector("#contact-form-button").addEventListener("click", subitMail);
 
-    function subitMail() {
-        console.log("You Clicked the Submit Button.");
+
+   document.querySelector('#contact-form-button')
+   .addEventListener('click', submitMail);
+
+    function submitMail() {
+        console.log("Mail submitted.");
     }
 
     connect.addEventListener('click', connectWallet);
-
-    // Listen for account changes
-    if (typeof window.ethereum !== 'undefined') {
-        window.ethereum.on('accountsChanged', function (accounts) {
-            if (accounts.length > 0) {
-                userAddress = accounts[0];
-                updateWalletDisplay();
-                console.log("Account changed to:", userAddress);
-            } else {
-                userAddress = null;
-                updateWalletDisplay();
-                console.log("Wallet disconnected");
-            }
-        });
-    }
 
 })();
