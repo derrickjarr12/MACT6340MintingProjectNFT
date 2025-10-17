@@ -1,85 +1,154 @@
 # AI Coding Instructions for NFT Art Gallery Project
 
 ## Project Overview
-This is a Node.js/Express web application showcasing NFT art collections. The project uses ES6 modules, EJS templating, and serves as a portfolio for digital artwork with contact functionality.
+Node.js/Express web application showcasing NFT art collections built with ES6 modules, EJS templating, and Bootstrap 5. Currently uses hard-coded data with MySQL infrastructure prepared but not yet integrated.
 
-## Architecture & Core Patterns
+## Architecture & Data Flow
 
-### Application Structure
-- **Entry Point**: `app.js` - Express server with ES6 module imports
-- **Views**: EJS templates in `views/` with Bootstrap 5 styling
-- **Static Assets**: Served from `public/` directory (CSS, JS, images, audio)
-- **Utilities**: Email functionality in `utils/utils.js` using nodemailer
+### Entry Point: `app.js`
+- ES6 module syntax (`import`/`export`) throughout codebase
+- Express server on port 3000 with middleware: `express.json()`, `express.static("public")`
+- **Critical**: Project data currently hard-coded as `data =["Aurora", "Flares", "Solar winds"]` (line 6)
+- Database utilities exist (`utils/database.js`) but are NOT imported/used yet
 
-### Data Flow
-- **Project Data**: Hard-coded array `["Project 1", "Project 2", "Project 3"]` in `app.js`
-- **Dynamic Routing**: `/Projects/:id` validates ID range (1-3) and renders individual project pages
-- **Template Data**: Projects passed as `projectArray` to EJS templates
+### Dual Data Strategy (Transition State)
+This project is mid-migration from hard-coded to database-driven:
+- **Current**: Array data passed as `projectArray` to templates
+- **Prepared**: `utils/database.js` exports `connect()` and `getAllProjects()` for MySQL2/promise
+- **Migration Path**: Replace array in `app.js` with `await getAllProjects()` when ready
 
-### Key Conventions
+### Route Architecture
+```javascript
+// Static pages (multiple routes → single template allowed)
+GET / or /home → index.ejs
+GET /project → featuredProject.ejs
+GET /gallery → gallery.ejs
+GET /contact → contact.ejs
 
-#### File Organization
+// Dynamic collection routes
+GET /Projects → projects.ejs (passes projectArray)
+GET /Projects/:id → project.ejs (validates id: 1-3, passes projectArray + which)
+
+// API endpoint
+POST /mail → utils.sendMessage() → JSON {result: "success|failure"}
 ```
-views/
-├── partials/header.ejs    # Shared navigation and head tags
-├── partials/footer.ejs    # Shared footer
-├── errors/404.ejs         # Custom 404 page
-└── [page].ejs            # Individual page templates
+
+### Template Component System
+**Reusable Partials**: `<%- include('partials/header'); %>`
+- `partials/projectCard.ejs`: Self-contained card with embedded `projectDetails` array (icons, gradients, badges)
+- `partials/header.ejs` + `partials/footer.ejs`: Shared layout
+
+**Data Embedding Pattern**: Complex metadata lives IN templates, not routes
+```javascript
+// Example from projectCard.ejs lines 7-28
+const projectDetails = [
+  { icon: 'fas fa-crown', gradient: 'linear-gradient(...)', badge: 'Treble Clef' },
+  // ... matched by array index to projectArray
+];
 ```
 
-#### EJS Template Patterns
-- **Partial Inclusion**: `<%- include('partials/header'); %>`
-- **Data Embedding**: Complex project details defined as arrays within templates (see `projects.ejs` lines 28-45)
-- **Dynamic Styling**: Inline styles and gradients generated via template logic
-
-#### Route Patterns
-- **Static Pages**: Multiple routes (`/`, `/home`) can render same template
-- **Collection Route**: `/Projects` renders list view with data
-- **Detail Route**: `/Projects/:id` with validation and 404 handling
-- **API Endpoint**: `/mail` POST for contact form submission
-
-### Development Workflows
-
-#### Starting the Application
+### Environment Configuration
+Required `.env` variables (validated in `utils.js` and `database.js`):
 ```bash
-npm run dev    # Development with nodemon
-npm start      # Production
+# Email (nodemailer Gmail SMTP)
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_SECURE=false
+MAIL_TLS=true
+MAIL_USERNAME=your_gmail
+MAIL_PASSWORD=app_password  # NOT regular password
+MESSAGE_TO=recipient_email
+
+# Database (MySQL2 - configured but unused)
+MYSQL_HOST=localhost
+MYSQL_USER=root
+MYSQL_PASSWORD=password
+MYSQL_DATABASE=nft_gallery
+MYSQL_PORT=3306
 ```
 
-#### Environment Configuration
-- Uses `dotenv` for mail configuration
-- Required env vars: `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `MESSAGE_TO`
+## Development Workflows
 
-### Frontend Integration
+### Running Locally
+```bash
+npm run dev    # Nodemon auto-restart
+npm start      # Production mode
+```
 
-#### Bootstrap + Custom CSS
-- Bootstrap 5.2.3 CDN for layout/components
-- Custom gradients and NFT-themed styling in `/css/style.css`
-- Font integration: Orbitron (primary), Eater, Freckle Face, Rubik 80s Fade
+### Database Setup (Future)
+```bash
+# Schema in scratch/buildDB.sql
+mysql -u root -p < scratch/buildDB.sql
+# Then uncomment database imports in app.js
+```
 
-#### JavaScript Patterns
-- **Contact Form**: `public/js/contact.js` handles form validation and async email submission
-- **Client-Server Communication**: Fetch API to `/mail` endpoint with loading states
+### Frontend Validation Pattern
+`public/js/contact.js` implements Bootstrap validation + async submission:
+1. Prevent default submit, validate with `form.checkValidity()`
+2. Add `.was-validated` class for Bootstrap styling
+3. Fetch POST to `/mail` with loading state management
+4. Reset form only on success
 
-### Email System
-- **Configuration**: Gmail SMTP via nodemailer in `utils/utils.js`
-- **Error Handling**: Proper async/await with try-catch and error propagation
-- **Security**: Environment variables for credentials
+## Critical Patterns & Gotchas
 
-### Error Handling
-- **Validation**: Route parameter validation with range checking
-- **404 Handling**: Custom error pages for invalid routes and project IDs
-- **Email Errors**: Graceful failure with user feedback
+### URL Routing Case Sensitivity
+- Collection route: `/Projects` (capital P)
+- Detail route: `/Projects/:id` (capital P)
+- Ensure templates use correct casing in links
 
-### Project-Specific Notes
-- **Project Scaling**: To add new projects, update the data array in `app.js` and corresponding template logic
-- **Asset Management**: Images stored in `public/images/` with specific naming (SUN.ico for favicon)
-- **Responsive Design**: Bootstrap grid system with custom hover effects on project cards
-- **SEO**: Proper meta tags and structured data in templates
+### Project ID Validation
+```javascript
+// app.js lines 39-43
+let id = parseInt(req.params.id);
+if(isNaN(id) || id < 1 || id > data.length) {
+  return res.status(404).render("errors/404.ejs");
+}
+```
+**Must update validation when data source changes**
 
-When modifying this codebase:
-1. Maintain ES6 module syntax throughout
-2. Follow the established EJS partial pattern for shared components
-3. Keep project data centralized in `app.js` until database integration
-4. Preserve the Bootstrap + custom CSS styling approach
-5. Test email functionality with proper environment variables
+### Template Variable Naming
+- Route passes `projectArray` (not `projects` or `data`)
+- Detail pages also receive `which` (current project ID)
+- Example: `projectArray[which - 1]` (arrays are 0-indexed)
+
+### Dynamic Styling in Templates
+`project.ejs` uses inline `<style>` with EJS:
+```html
+<body class="project-<%= which || 1 %>">
+```
+Project backgrounds (.project-1, .project-2, .project-3) defined per-template, not in global CSS.
+
+### Error Handling Middleware
+Order matters in `app.js`:
+1. Routes
+2. Error handler: `app.use((err, req, res, next) => {...})`
+3. 404 handler: `app.use((req, res) => {...})` (MUST be last)
+
+## External Dependencies
+
+- **Bootstrap 5.2.3**: CDN-loaded in template `<head>`
+- **Font Awesome 6.0.0**: Icons (CDN)
+- **Google Fonts**: Orbitron, Eater, Freckle Face, Rubik 80s Fade
+- **MySQL2**: Database driver (installed but not active)
+- **Nodemailer**: Email via Gmail SMTP (requires app password)
+
+## Modification Checklist
+
+### Adding a New Project
+1. Update `data` array in `app.js` (e.g., `["Aurora", "Flares", "Solar winds", "New Project"]`)
+2. Add corresponding entry to `projectDetails` arrays in:
+   - `views/partials/projectCard.ejs`
+   - `views/projects.ejs` (if duplicated)
+3. Update ID validation: `id > data.length` (auto-adjusts)
+4. Add project-specific styling to `views/project.ejs` (`.project-4` class)
+
+### Switching to Database
+1. Uncomment/add `import * as db from "./utils/database.js";` in `app.js`
+2. Replace `let data = [...]` with `await db.connect(); let data = await db.getAllProjects();`
+3. Update templates to use database fields (see `scratch/buildDB.sql` for schema)
+4. Modify ID validation to check against database length
+
+### Email Troubleshooting
+- Gmail requires "App Password" (not regular password) - generate in Google Account settings
+- Test with `console.log` in `utils/utils.js` line 24-27
+- Check SMTP settings match Gmail requirements (port 587, TLS)
