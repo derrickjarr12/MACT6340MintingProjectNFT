@@ -5,7 +5,11 @@
     let userAddress = null;
     let connect = document.querySelector('#wallet-connect');
 
-    connectWallet();
+    // Only connect wallet if button exists
+    if (connect) {
+        // Don't auto-connect on page load, wait for user click
+        connect.addEventListener('click', connectWallet);
+    }
 
     async function connectWallet() {
         if (typeof window.ethereum !== 'undefined') {
@@ -31,15 +35,14 @@
         }
     }
 
-
-
-   document.querySelector('#contact-form-button')
-   .addEventListener('click', submitMail);
+    // Contact form handler - only attach if button exists
+    const contactButton = document.querySelector('#contact-form-button');
+    if (contactButton) {
+        contactButton.addEventListener('click', submitMail);
+    }
 
     function submitMail() {
         console.log("Mail submitted.");
     }
-
-    connect.addEventListener('click', connectWallet);
 
 })();
