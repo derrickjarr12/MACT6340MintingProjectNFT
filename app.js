@@ -2,8 +2,23 @@
 import express from "express";
 import dotenv from "dotenv";
 import * as utils from "./utils/utils.js";
+import * as db from "./utils/database.js";
 dotenv.config();
-let data =["Aurora", "Flares", "Solar winds"];
+
+// Connect to database on startup
+await db.connect();
+
+// Fetch projects from database
+let data;
+try {
+  data = await db.getAllProjects();
+  console.log(`✅ Loaded ${data.length} projects from MySQL database`);
+  console.log("Project data:", JSON.stringify(data, null, 2));
+} catch (error) {
+  console.error("❌ Database connection failed:", error.message);
+  console.log("Using fallback data...");
+  data = ["Aurora", "Flares", "Solar winds"];
+}
 
 const app = express();
 const port = 3000;
@@ -37,7 +52,9 @@ app.get('/Projects', (_req, res) =>
 
 app.get("/Projects/:id", (req, res) => {
   let id = parseInt(req.params.id);
-  if(isNaN(id) || id < 1 || id > data.length) {
+  const projectCount = Array.isArray(data) ? data.length : 0;
+  
+  if(isNaN(id) || id < 1 || id > projectCount) {
     return res.status(404).render("errors/404.ejs");
   }
   res.render("project.ejs", {projectArray: data, which: id});

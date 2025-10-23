@@ -1,3 +1,10 @@
+-- Create database if it doesn't exist
+CREATE DATABASE IF NOT EXISTS nft_gallery;
+USE nft_gallery;
+
+-- Drop table if exists to start fresh
+DROP TABLE IF EXISTS projects;
+
 CREATE TABLE projects (
 id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
 project_name VARCHAR(150) NOT NULL,
