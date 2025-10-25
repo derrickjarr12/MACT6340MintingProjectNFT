@@ -28,12 +28,30 @@
                 <p class="text-center lead mb-5">Your Dreams Have Now Been Fulfilled</p>
             </div>
         </div>
+        
+        <style>
+    .fade-in {
+        opacity: 0;
+        animation: fadeInAnimation 1.5s ease-in forwards;
+        /* Prevent layout shift during animation */
+        visibility: visible;
+        will-change: opacity;
+    }
+    @keyframes fadeInAnimation {
+        from {
+            opacity: 0;    
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    </style>
 
-        <!-- Gallery Grid -->
-        <div class="row g-4">
-            <!-- Gallery Item 1 -->
-            <div class="col-md-5 col-md-6">
-                <div class="card h-100 shadow-sm gallery-item">
+    <!-- Gallery Grid -->
+    <div class="row g-4">
+        <!-- Gallery Item 1 -->
+        <div class="col-md-5 col-md-6">
+                <div class="card h-100 shadow-sm gallery-item fade-in">
                     <img src="/images/VISUAL ART.png" class="card-img-top" alt="Visual Art" style="height: 250px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title">Visual Art</h5>
@@ -45,7 +63,7 @@
 
             <!-- Gallery Item 2 -->
             <div class="col-md-5 col-md-6">
-                <div class="card h-100 shadow-sm gallery-item">
+                <div class="card h-100 shadow-sm gallery-item fade-in">
                     <img src="/images/TECH.png" class="card-img-top" alt="Tech Art" style="height: 250px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title">Tech Art</h5>
@@ -57,7 +75,7 @@
 
             <!-- Gallery Item 3 -->
             <div class="col-md-5 col-md-6">
-                <div class="card h-100 shadow-sm gallery-item">
+                <div class="card h-100 shadow-sm gallery-item fade-in">
                     <img src="/images/sunBurst.png" class="card-img-top" alt="Sun Burst" style="height: 250px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title">Sun Burst</h5>
@@ -69,7 +87,7 @@
 
             <!-- Gallery Item 4 -->
             <div class="col-md-5 col-md-6">
-                <div class="card h-100 shadow-sm gallery-item">
+                <div class="card h-100 shadow-sm gallery-item fade-in">
                     <img src="/images/SOUNDWAVE.jpeg" class="card-img-top" alt="Soundwave" style="height: 250px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title">Soundwave</h5>
@@ -111,6 +129,7 @@
         
         .gallery-item:hover .fas {
             transform: scale(1.1);
+            
         }
     </style>
 
