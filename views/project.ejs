@@ -53,12 +53,18 @@
     <div class="spacer"></div>
     
     <div class="project-content">
-      <% if (which && projectArray && projectArray[which - 1]) { %>
+      <% if (which && projectArray && projectArray[which - 1]) { 
+          const currentProject = projectArray[which - 1];
+          const projectName = typeof currentProject === 'string' ? currentProject : currentProject.project_name;
+          const projectDesc = typeof currentProject === 'string' 
+            ? `This is the details page for ${currentProject}.`
+            : currentProject.project_description || `This is the details page for ${projectName}.`;
+      %>
           <div class="mb-3">
             <a href="/Projects" class="btn btn-outline-secondary">← Back to All Projects</a>
           </div>
-          <h1 class="text-center mb-4"><%= projectArray[which - 1] %></h1>
-          <p class="lead">This is the details page for <%= projectArray[which - 1] %>.</p>
+          <h1 class="text-center mb-4"><%= projectName %></h1>
+          <p class="lead"><%= projectDesc %></p>
           
           <!-- Project-specific content -->
           <% if (which == 1) { %>
