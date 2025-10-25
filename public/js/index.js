@@ -5,7 +5,30 @@
     let userAddress = null;
     let connect = document.querySelector('#wallet-connect');
 
-    connectWallet();
+    // Check if wallet is already connected (but don't prompt)
+    checkConnection();
+
+    async function checkConnection() {
+        if (typeof window.ethereum !== 'undefined') {
+            try {
+                // Use eth_accounts instead of eth_requestAccounts (doesn't prompt)
+                const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                if (accounts.length > 0) {
+                    userAddress = accounts[0];
+                    let walletString = userAddress.substring(0, 5) + "..." + userAddress.substring(38, 42);
+                    connect.innerHTML = walletString;
+                    console.log("Wallet already connected:", userAddress);
+                } else {
+                    connect.innerHTML = "Connect Wallet";
+                }
+            } catch (error) {
+                console.error(error);
+                connect.innerHTML = "Connect Wallet";
+            }
+        } else {
+            connect.innerHTML = "Install MetaMask";
+        }
+    }
 
     async function connectWallet() {
         if (typeof window.ethereum !== 'undefined') {
