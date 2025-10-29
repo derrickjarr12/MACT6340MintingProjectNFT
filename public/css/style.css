@@ -229,18 +229,16 @@ h1 {
 
 /* Navigation Enhancements */
 .navbar {
-  backdrop-filter: blur(10px);
   background: rgba(33, 37, 41, 0.95) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-link {
-  transition: all 0.15s ease;
+  transition: color 0.1s ease;
   position: relative;
 }
 
 .nav-link:hover {
-  transform: translateY(-2px);
   color: #667eea !important;
 }
 

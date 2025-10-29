@@ -31,25 +31,29 @@
     </div>
 
     <div class="row g-4">
-            -- Full INSERT with all fields
-      INSERT INTO projects 
-      (project_name, img_url, project_description, quantity, price_eth, open_date_gmt, royalty_percent, active) 
-      VALUES 
-      ('Cosmic Dreams', 
-       '/images/cosmic-dreams.jpg', 
-       'A mesmerizing collection of cosmic digital art featuring nebulas and galaxies.', 
-       100, 
-       '2.50', 
-       '2025-11-01 12:00:00', 
-       '5.00', 
-       1);
+      <% 
+        const projectDetails = [
+          {
+            icon: 'fas fa-crown',
+            gradient: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
+            description: 'Premium gold-themed NFT collection featuring luxury digital artworks with exclusive blockchain verification.',
+            badge: 'Treble Clef'
+          },
+          {
+            icon: 'fas fa-palette',
+            gradient: 'linear-gradient(135deg, #F5F5DC 0%, #DEB887 100%)',
+            description: 'Sophisticated cream-colored digital art pieces emphasizing elegance and professional aesthetic design.',
+            badge: 'Bass Clef'
+          },
+          {
+            icon: 'fas fa-bolt',
+            gradient: 'linear-gradient(135deg, #FFFF00 0%, #FFD700 100%)',
+            description: 'High-energy yellow-themed creative collection showcasing dynamic digital art and innovative design.',
+            badge: 'C Clef'
+          }
+        ];
+      %>
       
-      -- Minimal INSERT (with defaults)
-      INSERT INTO projects (project_name, project_description, active) 
-      VALUES ('New Project', 'Description here', 1);
-      
-      -- Check the new project was added
-      SELECT * FROM projects WHERE project_name = 'Cosmic Dreams';
       <% projectArray.forEach((project, index) => { 
         // Support both string array (fallback) and database objects
         const projectName = typeof project === 'string' ? project : project.project_name;
