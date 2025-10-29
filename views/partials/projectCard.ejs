@@ -3,7 +3,7 @@
 
 
 <body> <div class="row g-4">
-    <!-- Project Cards Main
+    <!-- Project Cards Main -->
       <% 
         const projectDetails = [
           {
@@ -26,8 +26,14 @@
           }
         ];
       %>
-       -->
-      <% projectArray.forEach((project, index) => { %>
+      
+      <% projectArray.forEach((project, index) => { 
+        // Support both string array (fallback) and database objects
+        const projectName = typeof project === 'string' ? project : project.project_name;
+        const projectDesc = typeof project === 'string' 
+          ? (projectDetails[index]?.description || `Unique NFT artwork featuring ${project.toLowerCase()} with blockchain verification and digital authenticity.`)
+          : (project.project_description || projectDetails[index]?.description || 'No description available');
+      %>
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100 shadow-lg project-card" style="transition: transform 0.3s ease, box-shadow 0.3s ease;">
             <div class="card-img-top position-relative" style="height: 200px; background: <%= projectDetails[index]?.gradient || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' %>; display: flex; align-items: center; justify-content: center;">
@@ -41,9 +47,9 @@
               
             </div>
             <div class="card-body d-flex flex-column">
-              <h5 class="card-title fw-bold"><%= project %></h5>
+              <h5 class="card-title fw-bold"><%= projectName %></h5>
               <p class="card-text flex-grow-1">
-                <%= projectDetails[index]?.description || `Unique NFT artwork featuring ${project.toLowerCase()} with blockchain verification and digital authenticity.` %>
+                <%= projectDesc %>
               </p>
               <div class="mt-auto">
                 <div class="d-flex justify-content-between align-items-center">
