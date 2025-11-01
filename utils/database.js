@@ -1,34 +1,28 @@
 import mysql from "mysql2";
-import dotenv from "dotenv";
-dotenv.config();
 
 let pool;
 
 export async function connect() {
-    let cString = 
-        "mysql://" +
-        process.env.MYSQL_USER +
-        ":" +
-        process.env.MYSQL_PASSWORD + 
-        "@" +
-        process.env.MYSQL_HOST + 
-        ":" +
-        process.env.MYSQL_PORT +
-        "/" +
-        process.env.MYSQL_DATABASE;
-        
+    console.log('Connecting to MySQL with:', {
+        host: process.env.MYSQL_HOST,
+        user: process.env.MYSQL_USER,
+        database: process.env.MYSQL_DATABASE,
+        port: process.env.MYSQL_PORT
+    });
+    
     pool = mysql.createPool({
-        //cString //digital ocean sql server
         host: process.env.MYSQL_HOST,
         user: process.env.MYSQL_USER,
         password: process.env.MYSQL_PASSWORD,
         database: process.env.MYSQL_DATABASE,
-
-
-        }).promise();
-    }
+        port: process.env.MYSQL_PORT
+    }).promise();
     
-    export async function getAllProjects() {
-        const [rows] = await pool.query("SELECT * FROM projects");
-        return rows;
-    }
+    console.log('MySQL pool created successfully');
+}
+    
+export async function getAllProjects() {
+    const [rows] = await pool.query("SELECT project_name FROM projects ORDER BY id");
+    // Return array of project names to match the original array format
+    return rows.map(row => row.project_name);
+}
