@@ -1,9 +1,9 @@
--- Create database if it doesn't exist
-CREATE DATABASE IF NOT EXISTS GenartNFT;
-USE GenartNFT;
+-- -- Create database if it doesn't exist
+-- CREATE DATABASE IF NOT EXISTS GenartNFT;
+-- USE GenartNFT;
 
--- Drop table if exists to start fresh
-DROP TABLE IF EXISTS projects;
+-- -- Drop table if exists to start fresh
+-- DROP TABLE IF EXISTS projects;
 
 CREATE TABLE projects (
 id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -28,7 +28,7 @@ royalty_percent,
 active
 )
 VALUES (
-"Project 1",
+"Aurora",
 "https://plasmaclouds-nft-mint-cdn.atl1.cdn.digitaloceanspaces.com/images/Aurora.jpeg",
 "This is a short description of the first project. It is a really good
 project. It is made by a really good artist. It is really good work. It has good
@@ -37,10 +37,10 @@ code. It has good visuals. And it has heart and soul.",
 1.0,
 "2024-02-01 09:00:00",
 7,
-0
+1
 ),
 (
-"Project 2",
+"Flares",
 "https://plasmaclouds-nft-mint-cdn.atl1.cdn.digitaloceanspaces.com/images/Flares.jpeg",
 "This is a short description of the second project. It is a really good
 project. It is made by a really good artist. It is really good work. It has good
@@ -49,10 +49,10 @@ code. It has good visuals. And it has heart and soul.",
 1.5,
 "2023-12-15 07:30:00",
 5,
-0
+1
 ),
 (
-"Project 3",
+"Solar winds",
 "https://plasmaclouds-nft-mint-cdn.atl1.cdn.digitaloceanspaces.com/images/SolarWinds.jpeg",
 "This is a short description of the third project. It is a really good
 project. It is made by a really good artist. It is really good work. It has good
@@ -61,5 +61,7 @@ code. It has good visuals. And it has heart and soul.",
 2.0,
 "2024-03-19 05:00:00",
 2,
-0
+1
 );
+
+
