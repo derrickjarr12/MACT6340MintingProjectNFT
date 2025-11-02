@@ -35,7 +35,14 @@ export async function connect() {
 }
 
 export async function getAllProjects() {
-    const [rows] = await pool.query("SELECT project_name FROM projects WHERE active = 1 ORDER BY id");
-    // Return array of project names to match the original array format
-    return rows.map(row => row.project_name);
+    const [rows] = await pool.query("SELECT id, project_name, img_url, project_description, quantity, price_eth FROM projects WHERE active = 1 ORDER BY id");
+    // Return array of project objects with all data
+    return rows.map(row => ({
+        id: row.id,
+        project_name: row.project_name,
+        img_url: row.img_url,
+        project_description: row.project_description,
+        quantity: row.quantity,
+        price_eth: row.price_eth
+    }));
 }
