@@ -12,7 +12,7 @@ let data = await db.getAllProjects();
 
 const app = express();
 app.use(cors());
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.static("public"));
