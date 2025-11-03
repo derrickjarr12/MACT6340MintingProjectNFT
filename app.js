@@ -7,8 +7,22 @@ import * as utils from "./utils/utils.js";
 import * as db from "./utils/database.js";
 
 // Connect to database and get projects
-await db.connect();
-let data = await db.getAllProjects();
+let data;
+
+try {
+    await db.connect();
+    data = await db.getAllProjects();
+    console.log('Database connected successfully, loaded', data.length, 'projects');
+} catch (error) {
+    console.error('Database connection failed:', error.message);
+    console.log('Falling back to demo data...');
+    // Fallback data if database fails
+    data = [
+        { id: 1, project_name: "Aurora", img_url: "", project_description: "Demo project", quantity: 100, price_eth: 0.1 },
+        { id: 2, project_name: "Flares", img_url: "", project_description: "Demo project", quantity: 100, price_eth: 0.1 },
+        { id: 3, project_name: "Solar winds", img_url: "", project_description: "Demo project", quantity: 100, price_eth: 0.1 }
+    ];
+}
 
 const app = express();
 app.use(cors());
