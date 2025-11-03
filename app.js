@@ -55,7 +55,21 @@ app.get('/Projects', (_req, res) =>
     res.render('projects.ejs', { projectArray: data })
 );
 
+// Add lowercase route for better UX
+app.get('/projects', (_req, res) =>
+    res.render('projects.ejs', { projectArray: data })
+);
+
 app.get("/Projects/:id", (req, res) => {
+  let id = parseInt(req.params.id);
+  if(isNaN(id) || id < 1 || id > data.length) {
+    return res.status(404).render("errors/404.ejs");
+  }
+  res.render("project.ejs", {projectArray: data, which: id});
+});
+
+// Add lowercase route for individual projects
+app.get("/projects/:id", (req, res) => {
   let id = parseInt(req.params.id);
   if(isNaN(id) || id < 1 || id > data.length) {
     return res.status(404).render("errors/404.ejs");
