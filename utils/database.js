@@ -12,7 +12,10 @@ export async function connect() {
         password: process.env.DO_MYSQL_PASSWORD,
         database: process.env.DO_MYSQL_DATABASE,
         port: process.env.DO_MYSQL_PORT,
-        ssl: { rejectUnauthorized: false }
+        ssl: { rejectUnauthorized: false },
+        connectTimeout: 30000,
+        acquireTimeout: 30000,
+        timeout: 30000
     } : {
         host: process.env.MYSQL_HOST,
         user: process.env.MYSQL_USER,
@@ -29,9 +32,19 @@ export async function connect() {
         environment: useDigitalOcean ? 'Digital Ocean' : 'Local'
     });
 
-    pool = mysql.createPool(config).promise();
-    
-    console.log('MySQL pool created successfully');
+    try {
+        pool = mysql.createPool(config).promise();
+        
+        // Test the connection
+        const connection = await pool.getConnection();
+        await connection.ping();
+        connection.release();
+        
+        console.log('MySQL pool created and connection tested successfully');
+    } catch (error) {
+        console.error('Failed to connect to MySQL:', error.message);
+        throw error;
+    }
 }
 
 export async function getAllProjects() {
