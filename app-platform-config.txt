@@ -1,0 +1,39 @@
+# DigitalOcean App Platform Configuration
+# Add this as an environment variable in your App Platform settings
+
+# Environment Variable Name: CA_CERTIFICATE_PEM
+# Environment Variable Value: (paste the certificate content below)
+
+-----BEGIN CERTIFICATE-----
+MIIEUDCCArigAwIBAgIURn/L7FQbYpEetW4AMP5DzTTSBtwwDQYJKoZIhvcNAQEM
+BQAwQDE+MDwGA1UEAww1OTI0OWQ0YzMtYzc4Yy00NjY2LTk1MDAtMjM1OTQ2NTE0
+OWNlIEdFTiAxIFByb2plY3QgQ0EwHhcNMjUxMDI4MTg0MjE4WhcNMzUxMDI2MTg0
+MjE4WjBAMT4wPAYDVQQDDDU5MjQ5ZDRjMy1jNzhjLTQ2NjYtOTUwMC0yMzU5NDY1
+MTQ5Y2UgR0VOIDEgUHJvamVjdCBDQTCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCC
+AYoCggGBANHsuVw7bFDMvkkKh8y/vNR/5Oygegd54bfzgwGH8MeifHJ768VbE5Ho
+15xvoxgtAISUk/UvZ7ro6ajItSBamEyOzWHOld6uG5ZhfE6QZrLk35QFFix47xJu
+dYrTXzzmj4ci/wNxszkVsL+kF943OyjdvK6fqQcuCeZoyHHs1AFxk2wEsQVRwAPM
+jl0WLGidUIdAuoJkg3nR+6IdLl9awf3hqBIsJWZXp2o7lXwqbEqu1rmpQ09f3pI5
+krpnCgbYSZZ5ehXH/uGvKmlRl0ua1wvriPrgHyIS1NSyxV6Dzjf/HABkuASu6sk5
+1OCXKlV29pDhoAaMFv+7Zo2VuLqzwGYU93PC8Lziq9X4rnYPkoVe1wM86GYjRUOM
+DnTYSBzAFwfVJGr2Tfm99iRW+LxQBEO/iOi2trpi4LEZoE28tQd8eSnmERPBxGMj
+oT69UYmxTgy1zRUlWG2ngrg1R+CwhCLU/Yfhs2C32/uXFPtoNipdstod6i3hhqLA
+X7GZH02yAwIDAQABo0IwQDAdBgNVHQ4EFgQUXBt5+XmPQVe8nF6Dam/Msq8Sbwsw
+EgYDVR0TAQH/BAgwBgEB/wIBADALBgNVHQ8EBAMCAQYwDQYJKoZIhvcNAQEMBQAD
+ggGBAGC2zJLu/A4S/QAb0ZVISmCReT77WFQ+LHdLbm7BdfoKdrpNYMRa3qpK/Mh2
+j7mdiODBWIKpLcHQhp3sX9h4E33MUK7BO78j7zgWYdPPNWZ0ZsMHkVCwuOAL4LPM
+va3iV3QlaCEIeqcjzvQfFBOhA31aDEVBqgJyclXUVq3lKqS1LGYwrUGRi7bSXHXx
+uhxlNsqnEx0I1Z2Z9FlqazCQ5osTxM78aIpPBhp/nqVy2roLoQcCjNkHtnzdXuVO
+WOx3v1MHHeRqmB8zWW6ytqxxuYUpwAMZfVNOdflCIg/1ZrhbNPE1HDXvYEOg2M2o
+3fOndpwuqln/jGFgL/pLPy4HUhkHkUtaaGsusx8dPAoVzflY6WLsgUbCj3oO8Wr6
+uNujpZnWBwxiNRLxGrcCXZS/nWBzWfBxujyMl6Pjjcp5BIWrGOn9pk3nuYjIVILs
+WZgRmolp542wzHw0EK1RHH3yImNwPapRj3zmjPGQHZDN+eG50V4gsjtmNa6lzjVB
+g7sfsg==
+-----END CERTIFICATE-----
+
+# Then in your Node.js code, use it like this:
+# const caCert = process.env.CA_CERTIFICATE_PEM;
+# const https = require('https');
+# const agent = new https.Agent({
+#   ca: caCert
+# });
