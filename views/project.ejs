@@ -53,84 +53,58 @@
     <div class="spacer"></div>
     
     <div class="project-content">
-      <% if (which && projectArray && projectArray[which - 1]) { 
-          const currentProject = projectArray[which - 1];
-          const projectName = typeof currentProject === 'string' ? currentProject : currentProject.project_name;
-          const projectDesc = typeof currentProject === 'string' 
-            ? `This is the details page for ${currentProject}.`
-            : currentProject.project_description || `This is the details page for ${projectName}.`;
-      %>
-          <div class="mb-3">
-            <a href="/Projects" class="btn btn-outline-secondary">← Back to All Projects</a>
-          </div>
-          <h1 class="text-center mb-4"><%= projectName %></h1>
-          <p class="lead"><%= projectDesc %></p>
-          
-          <!-- Project-specific content -->
-          <% if (which == 1) { %>
-              <div class="row mt-4">
-                  <div class="col-md-6">
-                      <h3>Project 1 Features</h3>
-                      <ul class="list-group list-group-flush">
-                          <li class="list-group-item">Gold-themed design</li>
-                          <li class="list-group-item">Premium quality</li>
-                          <li class="list-group-item">Exclusive content</li>
-                      </ul>
-                  </div>
-                  <div class="col-md-6">
-                      <h3>Details</h3>
-                      <p>This is Project 1 with a beautiful gold theme. The content is designed to be visually appealing while maintaining excellent readability.</p>
-                  </div>
-              </div>
-          <% } else if (which == 2) { %>
-              <div class="row mt-4">
-                  <div class="col-md-6">
-                      <h3>Project 2 Features</h3>
-                      <ul class="list-group list-group-flush">
-                          <li class="list-group-item">Cream-colored elegance</li>
-                          <li class="list-group-item">Sophisticated design</li>
-                          <li class="list-group-item">Professional look</li>
-                      </ul>
-                  </div>
-                  <div class="col-md-6">
-                      <h3>Details</h3>
-                      <p>This is Project 2 with a sophisticated cream theme. The design emphasizes elegance and professional aesthetics.</p>
-                  </div>
-              </div>
-          <% } else if (which == 3) { %>
-              <div class="row mt-4">
-                  <div class="col-md-6">
-                      <h3>Project 3 Features</h3>
-                      <ul class="list-group list-group-flush">
-                          <li class="list-group-item">Bright yellow energy</li>
-                          <li class="list-group-item">Dynamic presentation</li>
-                          <li class="list-group-item">Creative approach</li>
-                      </ul>
-                  </div>
-                  <div class="col-md-6">
-                      <h3>Details</h3>
-                      <p>This is Project 3 with an energetic yellow theme. The bright design conveys creativity and dynamic energy.</p>
-                  </div>
-              </div>
-          <% } %>
-          
-          <!-- Call to Action -->
-          <div class="row mt-5">
-            <div class="col-12 text-center">
-              <hr class="mb-4">
-              <h4>Interested in This Project?</h4>
-              <p class="mb-4">Contact us to learn more about acquiring this NFT artwork.</p>
-              <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                <a href="/contact" class="btn btn-primary btn-lg">Contact Artist</a>
-                <a href="/Projects" class="btn btn-outline-secondary btn-lg">View More Projects</a>
-              </div>
-            </div>
-          </div>
-          
-      <% } else { %>
-          <h2>Project not found</h2>
-          <p>The requested project could not be found.</p>
-      <% } %>
+            <% if (which && projectArray && projectArray[which - 1]) { 
+                    const currentProject = projectArray[which - 1];
+                    const projectName = typeof currentProject === 'string' ? currentProject : currentProject.project_name;
+                    const projectDesc = typeof currentProject === 'string' 
+                        ? `This is the details page for ${currentProject}.`
+                        : currentProject.project_description || `This is the details page for ${projectName}.`;
+                    const projectImg = typeof currentProject === 'object' && currentProject.img_url ? currentProject.img_url : null;
+            %>
+                    <div class="mb-3">
+                        <a href="/Projects" class="btn btn-outline-secondary">← Back to All Projects</a>
+                    </div>
+                    <h1 class="text-center mb-4"><%= projectName %></h1>
+                    <p class="lead"><%= projectDesc %></p>
+                    <% if (projectImg) { %>
+                        <div class="text-center mb-4">
+                            <img src="<%= projectImg %>" alt="<%= projectName %>" class="img-fluid rounded shadow" style="max-height:350px;object-fit:cover;">
+                        </div>
+                    <% } %>
+                    <!-- Optionally embed demo for specific projects -->
+                    <% if (which == 1) { %>
+                        <div class="row mt-5">
+                            <div class="col-12">
+                                <div class="controls" style="position:relative;top:0;left:0;z-index:2;width:260px;max-width:100%;margin-bottom:20px;">
+                                    <h3>Plasma Flare Art</h3>
+                                    <button onclick="startAnimation()">Start</button>
+                                    <button onclick="stopAnimation()">Stop</button>
+                                    <button onclick="resetArt()">Reset</button>
+                                </div>
+                                <div id="demo-container" style="display:flex;justify-content:center;align-items:center;min-height:600px;padding:20px;margin-bottom:50px;">
+                                    <div id="canvas"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <script src="https://d3js.org/d3.v7.min.js"></script>
+                        <script src="/js/plasma-art.js"></script>
+                    <% } %>
+                    <!-- Call to Action -->
+                    <div class="row mt-5">
+                        <div class="col-12 text-center">
+                            <hr class="mb-4">
+                            <h4>Interested in This Project?</h4>
+                            <p class="mb-4">Contact us to learn more about acquiring this NFT artwork.</p>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                <a href="/contact" class="btn btn-primary btn-lg">Contact Artist</a>
+                                <a href="/Projects" class="btn btn-outline-secondary btn-lg">View More Projects</a>
+                            </div>
+                        </div>
+                    </div>
+            <% } else { %>
+                    <h2>Project not found</h2>
+                    <p>The requested project could not be found.</p>
+            <% } %>
     </div>
 
   </div>
