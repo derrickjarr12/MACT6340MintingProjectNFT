@@ -1,0 +1,5 @@
+<!-- Simple SVG favicon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <circle cx="16" cy="16" r="12" fill="#ff6b35"/>
+  <circle cx="16" cy="16" r="6" fill="#ff1744"/>
+</svg>

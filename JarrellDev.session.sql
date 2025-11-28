@@ -1,4 +1,9 @@
-SELECT * FROM projects;
+SELECT * FROM projects WHERE active =0;
+
+
+
+
+
 
 
 
