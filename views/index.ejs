@@ -24,33 +24,34 @@
 <body>
    <%- include('partials/header'); %>
 
+   <!-- Video Intro Section -->
+  <div id="video-intro" class="w-100 mb-5" style="position:relative;overflow:hidden;max-height:650px;min-height:420px;">
+    <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;min-height:420px;max-height:650px;">
+      <source src="/images/Explore.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.25);"></div>
+    <div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;">
+      <h1 class="display-1 fw-bold text-white" style="text-shadow:2px 2px 24px #000,0 0 48px #222;letter-spacing:3px;">Welcome to the Dreamer's Cafe.</h1>
+      <p class="lead text-white fs-3" style="text-shadow:1px 1px 12px #000;max-width:700px;">Experience digital art, music, and creativity in a new dimension. Scroll down to explore!</p>
+    </div>
+  </div>
    <!-- main content -->
   <div id="main-content">
-  
-
-  <!-- Splash Screen -->
-  <div id="splash" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;background:url('/images/Plasma-Clouds.jpg') center center/cover no-repeat;display:flex;align-items:center;justify-content:center;flex-direction:column;">
-    <h1 class="Freckle-Face" style="color:rgb(136, 145, 58);font-size:3rem; ">Plasma Clouds</h1>
-    <a href="/project" style="color:white;font-size:1.5rem;text-shadow:2px 2px 8px #000;position:absolute;bottom:40px;">Enter Site</a>
+    <div class="container text-center mb-4">
+      <h1 class="display-1 fw-bold" style="letter-spacing:3px; color:rgba(255,255,255,0.09); text-shadow:0 2px 2px #222; opacity:1;">Sip the Sky</h1>
     </div>
-    <script>
-    setTimeout(function() {
-      document.getElementById('splash').style.display = 'none';
-    }, 6000); // 6 seconds
-  </script>
-  <!-- end splash screen -->
-
-  <!-- main content -->
     <main class="py-5">
       <div class="container">
         
         <!-- Hero Section -->
+        <div style="height:120px;"></div>
         <section id="hero" class="text-center mb-5">
           <div class="row">
             <div class="col-lg-8 mx-auto">
-              <h1 class="display-3 fw-bold mb-4">The NFT Cafe</h1>
-              <p class="lead mb-xl-5"> Let's Chill!.</p>
-              <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+              <h1 class="display-3 fw-bold mb-4 visually-hidden">The Dreamer's Cafe</h1>
+              <p class="lead mb-xl-5 visually-hidden"> Let's Chill!.</p>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-center visually-hidden">
                 <a href="/project" class="btn btn-primary btn-lg px-4 me-md-2">View Featured Project</a>
                 <a href="/gallery" class="btn btn-outline-secondary btn-lg px-4">Explore Gallery</a>
               </div>

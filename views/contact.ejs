@@ -16,60 +16,88 @@
  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
+  <style>
+    body.contact-bg {
+      min-height: 100vh;
+      background: none;
+      position: relative;
+    }
+    .album-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      background: url('/images/AlbumCover.jpeg') center center/cover no-repeat;
+      filter: blur(1px) brightness(0.9);
+      opacity: 0.74;
+      pointer-events: none;
+      transition: filter 0.3s;
+    }
+    .contact-content {
+      position: relative;
+      z-index: 1;
+      background: rgba(30,30,40,0.60);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 2rem 2.5rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(1px);
+    }
+  </style>
+  <div class="album-bg"></div>
+  <script>document.body.classList.add('contact-bg');</script>
   <%- include('partials/header'); %>
 
-  <div class="container mt-5 mb-5">
+
+  <div class="container contact-content">
     <h1 class="text-center mb-5">Get in Touch</h1>
-
-
     <!--Contact form -->
-     <form id="contact-form" class="needs-validation" novalidate>
+    <form id="contact-form" class="needs-validation" novalidate>
       <div class="row m-5">
-  <div class="col">
-    <input id="first-name" type="text" class="form-control "div class="invalid-feedback" aria-label="First name" required>
-    <div class="invalid-feedback">
-      Please provide a valid first name.
-      autocomplete"given name"
-    </div>
-  </div>
-  <div class="col">
-    <input id="last-name" type="text" class="form-control" div class="invalid-feedback" aria-label="Last name" required>
-    <div class="invalid-feedback">
-      Please provide a valid last name.
-      autocomplete="family name"
-    </div>
-  </div>
-</div>
- <!-- Phone (Optional) -->
-        <div class="row m-5">
-          <div class="mb-3">
-            <input type="tel" class="form-control" id="phone" placeholder="Phone (Optional)">
+        <div class="col">
+          <input id="first-name" type="text" class="form-control" aria-label="First name" required>
+          <div class="invalid-feedback">
+            Please provide a valid first name.
+            autocomplete="given name"
           </div>
         </div>
-<div class="row m-5">
-  <div class="mb-3">
-   <input id="mail" type="email" class="form-control" placeholder="Email address" aria-describedby="emailHelp" required>
-    <div id="emailFeedback" class="invalid-feedback">
-      Format should be example@example.com.
-    </div>
-    </div>
- </div>
- <div class="row m-5">
-   <div class="mb-3">
-     <textarea class="form-control" id="msg" rows="3" placeholder="Enter your message or comment."></textarea>
-    </div>
- </div>
-  <button id="contact-form-button" class="btn btn-primary">
-    <span id="btnText">Send Message</span>
-    <div id="btnSpinner" class="spinner-border spinner-border-sm text-light ms-2 d-none" role="status"></div>
-  </button>
-</form>
-<iframe ...></iframe>
-<a href="https://www.google.com/maps/place/Your+Address" target="_blank">
-  <button>Get Directions</button>
-</a>
-   <!-- End Contact form -->
+        <div class="col">
+          <input id="last-name" type="text" class="form-control" aria-label="Last name" required>
+          <div class="invalid-feedback">
+            Please provide a valid last name.
+            autocomplete="family name"
+          </div>
+        </div>
+      </div>
+      <!-- Phone (Optional) -->
+      <div class="row m-5">
+        <div class="mb-3">
+          <input type="tel" class="form-control" id="phone" placeholder="Phone (Optional)">
+        </div>
+      </div>
+      <div class="row m-5">
+        <div class="mb-3">
+          <input id="mail" type="email" class="form-control" placeholder="Email address" aria-describedby="emailHelp" required>
+          <div id="emailFeedback" class="invalid-feedback">
+            Format should be example@example.com.
+          </div>
+        </div>
+      </div>
+      <div class="row m-5">
+        <div class="mb-3">
+          <textarea class="form-control" id="msg" rows="3" placeholder="Enter your message or comment."></textarea>
+        </div>
+      </div>
+      <button id="contact-form-button" class="btn btn-primary">
+        <span id="btnText">Send Message</span>
+        <div id="btnSpinner" class="spinner-border spinner-border-sm text-light ms-2 d-none" role="status"></div>
+      </button>
+    </form>
+    <a href="https://www.google.com/maps/place/Your+Address" target="_blank">
+      <button class="btn btn-outline-secondary mt-4">Get Directions</button>
+    </a>
+    <!-- End Contact form -->
+  </div>
 
 
   <%- include('partials/footer'); %>

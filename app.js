@@ -6,7 +6,6 @@ import cors from 'cors';
 import * as utils from "./utils/utils.js";
 import * as db from "./utils/database.js";
 
-<<<<<<< HEAD
 (async () => {
   const app = express();
   app.use(cors());
@@ -23,79 +22,11 @@ import * as db from "./utils/database.js";
   } catch (error) {
       console.error('Database connection failed:', error.message);
       console.log('Falling back to demo data...');
-      data = [
-          { id: 1, project_name: "Aurora", img_url: "", project_description: "Demo project", quantity: 100, price_eth: 0.1 },
-          { id: 2, project_name: "Flares", img_url: "", project_description: "Demo project", quantity: 100, price_eth: 0.1 },
-          { id: 3, project_name: "Solar winds", img_url: "", project_description: "Demo project", quantity: 100, price_eth: 0.1 }
-      ];
-=======
-const app = express();
-const port = 3000;
-app.set("view engine", "ejs");
-app.use(express.json());
-app.use(express.static("public"));
-
-// Initialize data with fallback
-let data = ["Aurora", "Flares", "Solar winds"];
-
-// Try to connect to database and load projects
-async function initializeDatabase() {
-  try {
-    await db.connect();
-    data = await db.getAllProjects();
-    console.log(`✅ Loaded ${data.length} projects from MySQL database`);
-    console.log("Project data:", JSON.stringify(data, null, 2));
-  } catch (error) {
-    console.error(" Database connection failed:", error.message);
-    console.log("Using fallback data...");
-    data = ["Aurora", "Flares", "Solar winds"];
-  }
-}
-
-// Initialize database connection
-initializeDatabase();
-
-app.get("/", (_req, res) => {
-  res.render("index.ejs");
-});
-
-app.get("/home", (_req, res) => {
-  res.render("index.ejs");
-});
-
-app.get("/project", (_req, res) => {
-  res.render("featuredProject.ejs");
-});
-
-app.get("/gallery", (_req, res) =>
-    res.render("gallery.ejs")
-);
-
-app.get("/contact", (_req, res) =>
-    res.render("contact.ejs")
-);
-
-// Plasma Art Demo
-app.get("/plasma-art", (_req, res) => {
-  res.render("plasma-art.ejs");
-});
-
-// Distortion Demo
-app.get("/distortion", (_req, res) => {
-  res.render("distortion.ejs");
-});
-
-app.get('/Projects', (_req, res) =>
-    res.render('projects.ejs', { projectArray: data })
-);
-
-app.get("/Projects/:id", (req, res) => {
-  let id = parseInt(req.params.id);
-  const projectCount = Array.isArray(data) ? data.length : 0;
-  
-  if(isNaN(id) || id < 1 || id > projectCount) {
-    return res.status(404).render("errors/404.ejs");
->>>>>>> 07739bd (Add interactive demos: plasma-art, distortion with audio-reactive particles)
+          data = [
+            { id: 1, project_name: "Aurora", img_url: process.env.AURORA_IMG_URL, project_description: "Demo project", quantity: 100, price_eth: 0.1 },
+            { id: 2, project_name: "Flares", img_url: process.env.FLARES_IMG_URL, project_description: "Demo project", quantity: 100, price_eth: 0.1 },
+            { id: 3, project_name: "Solar winds", img_url: process.env.SOLARWINDS_IMG_URL, project_description: "Demo project", quantity: 100, price_eth: 0.1 }
+          ];
   }
 
   // Artwork gallery detail pages
