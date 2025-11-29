@@ -3,3 +3,9 @@ https://plasmaclouds-nft-mint-cdn.atl1.cdn.digitaloceanspaces.com/images/Aurora.
 https://plasmaclouds-nft-mint-cdn.atl1.cdn.digitaloceanspaces.com/images/Flares.jpeg
 
 https://plasmaclouds-nft-mint-cdn.atl1.cdn.digitaloceanspaces.com/images/SolarWinds.jpeg
+
+https://plasmaclouds-nft-mint-cdn.atl1.cdn.digitaloceanspaces.com/images/sunBurst.png
+
+https://plasmaclouds-nft-mint-cdn.atl1.cdn.digitaloceanspaces.com/images/TECH.png
+
+https://plasmaclouds-nft-mint-cdn.atl1.cdn.digitaloceanspaces.com/images/VISUAL_ART.png

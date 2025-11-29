@@ -44,11 +44,19 @@ import * as db from "./utils/database.js";
   });
 
   app.get("/", (_req, res) => {
-    res.render("index.ejs");
+    res.render("index.ejs", {
+      sunburstImg: process.env.SUNBURST_IMG_URL,
+      techImg: process.env.TECH_IMG_URL,
+      visualArtImg: process.env.VISUAL_ART_IMG_URL
+    });
   });
 
   app.get("/home", (_req, res) => {
-    res.render("index.ejs");
+    res.render("index.ejs", {
+      sunburstImg: process.env.SUNBURST_IMG_URL,
+      techImg: process.env.TECH_IMG_URL,
+      visualArtImg: process.env.VISUAL_ART_IMG_URL
+    });
   });
 
   app.get("/project", (_req, res) => {
