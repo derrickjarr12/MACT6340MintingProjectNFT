@@ -64,8 +64,49 @@ import * as db from "./utils/database.js";
   });
 
   app.get("/gallery", (_req, res) =>
-      res.render("gallery.ejs")
+    res.render("gallery.ejs")
   );
+
+  // Gallery image detail data
+  const galleryImages = [
+    {
+      id: 1,
+      src: "/images/Native_African_ American.jpeg",
+      title: "Native African American",
+      desc: "A celebration of Native and African American heritage in digital form.",
+      nft: "NFT Collection #001"
+    },
+    {
+      id: 2,
+      src: "/images/VisuaTech_ Diode.jpeg",
+      title: "VisualTech Diode",
+      desc: "Tech-inspired digital art with a futuristic diode motif.",
+      nft: "NFT Collection #002"
+    },
+    {
+      id: 3,
+      src: "/images/BURST.jpeg",
+      title: "BURST",
+      desc: "An explosion of color and energy in digital form.",
+      nft: "NFT Collection #003"
+    },
+    {
+      id: 4,
+      src: "/images/EtherMusic.jpeg",
+      title: "EtherMusic",
+      desc: "Music and ether merge in this surreal digital artwork.",
+      nft: "NFT Collection #004"
+    }
+  ];
+
+  app.get("/gallery/image/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const image = galleryImages.find(img => img.id === id);
+    if (!image) {
+      return res.status(404).render("errors/404.ejs");
+    }
+    res.render("imageDetail.ejs", { image });
+  });
 
   app.get("/contact", (_req, res) =>
       res.render("contact.ejs")

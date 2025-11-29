@@ -15,6 +15,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/favorites.js" defer></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const aboutLink = document.querySelector('a.nav-link[href="#about"]');
+        if (aboutLink) {
+          aboutLink.addEventListener('click', function(e) {
+            const isHome = window.location.pathname === '/' || window.location.pathname === '/home';
+            if (!isHome) {
+              e.preventDefault();
+              window.location.href = '/#about';
+            }
+            // If already on home, let default anchor scroll happen
+          });
+        }
+      });
+    </script>
 </head>
 
 <body>
