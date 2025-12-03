@@ -1,0 +1,12 @@
+{
+  "name": "dj-sampler-full-visuals",
+  "version": "1.0.0",
+  "description": "Electron sampler with 5 channels, step sequencer, tempo, FX, and DJ visuals (no DMX).",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^30.0.0"
+  }
+}

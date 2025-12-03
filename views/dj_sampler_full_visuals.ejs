@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DJ Sampler Full Visuals</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/dj_sampler_full_visuals/dj_samp_src/style.css">
+</head>
+<body>
+  <%- include('partials/header'); %>
+  <main class="container py-5">
+    <header>
+      <h1>Sampler + Sequencer + FX + DJ Visuals</h1>
+      <div class="tempo">
+        <label>BPM
+          <input type="number" id="bpm" value="120" min="40" max="240">
+        </label>
+        <button id="startSeq">▶ Play</button>
+        <button id="stopSeq">■ Stop</button>
+      </div>
+    </header>
+
+    <section id="sampler">
+      <h2>Sampler (5 Channels)</h2>
+      <div class="channels">
+        <!-- Channels will be generated dynamically -->
+      </div>
+    </section>
+
+    <section id="sequencer">
+      <h2>Step Sequencer (16 steps)</h2>
+      <div id="grid"></div>
+    </section>
+
+    <section id="effects">
+      <h2>Effects</h2>
+      <div class="fx-grid">
+        <div class="fx">
+          <h3>EQ</h3>
+          <label>Low (lowshelf gain) <input type="range" id="eqLow" min="-15" max="15" step="0.1" value="0"></label>
+          <label>Mid (peaking gain) <input type="range" id="eqMid" min="-15" max="15" step="0.1" value="0"></label>
+          <label>High (highshelf gain) <input type="range" id="eqHigh" min="-15" max="15" step="0.1" value="0"></label>
+        </div>
+        <div class="fx">
+          <h3>Delay</h3>
+          <label>Time (s) <input type="range" id="delayTime" min="0" max="1" step="0.01" value="0.25"></label>
+          <label>Feedback <input type="range" id="delayFb" min="0" max="0.95" step="0.01" value="0.3"></label>
+          <label>Mix <input type="range" id="delayMix" min="0" max="1" step="0.01" value="0.25"></label>
+        </div>
+        <div class="fx">
+          <h3>Reverb</h3>
+          <p class="muted">Convolver without IR by default. Load your own IR for effect.</p>
+          <label>Wet <input type="range" id="reverbWet" min="0" max="1" step="0.01" value="0"></label>
+          <label class="file-btn">Load IR <input type="file" id="irLoader" accept=".wav,.mp3,.ogg,.flac" /></label>
+        </div>
+        <div class="fx">
+          <h3>Dynamics</h3>
+          <label>Compressor Thr (dB) <input type="range" id="compThr" min="-60" max="0" step="1" value="-24"></label>
+          <label>Compressor Ratio <input type="range" id="compRatio" min="1" max="20" step="1" value="12"></label>
+          <label>Limiter Thr (dB) <input type="range" id="limitThr" min="-12" max="0" step="0.5" value="-1"></label>
+          <label>Master Gain <input type="range" id="masterGain" min="0" max="2" step="0.01" value="1"></label>
+        </div>
+      </div>
+    </section>
+
+    <section id="state">
+      <h2>Sample Sets</h2>
+      <button id="saveSet">💾 Save Set</button>
+      <button id="loadSet">📂 Load Set</button>
+      <input type="file" id="setLoader" accept=".json" style="display:none" />
+    </section>
+
+    <section id="visuals">
+      <h2>DJ Visuals</h2>
+      <canvas id="viz" width="1100" height="220"></canvas>
+      <div class="viz-controls">
+        <label><input type="checkbox" id="pulse" checked> Pulse on Beat</label>
+        <label><input type="checkbox" id="glow" checked> Glow</label>
+        <label><input type="checkbox" id="spotlight" checked> Spotlight</label>
+      </div>
+    </section>
+  </main>
+  <%- include('partials/footer'); %>
+  <script src="/dj_sampler_full_visuals/dj_samp_src/renderer.js"></script>
+</body>
+</html>

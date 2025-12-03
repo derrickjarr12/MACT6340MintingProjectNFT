@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title> MIX & MELODIES</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: system-ui, Arial, sans-serif;
+      /* Remove static background, use video instead */
+      background: #181828;
+      color: #eaeaf0;
+    }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: #12121a; position: sticky; top:0; z-index:10; border-bottom: 1px solid #1f1f28; }
+    h1 { margin: 0; font-size: 20px; }
+    h2 { font-size: 18px; margin-top: 0; }
+    section { padding: 16px 20px; }
+    .muted { opacity: 0.7; font-size: 12px; }
+    .tempo { display: flex; gap: 10px; align-items: center; }
+    .tempo input { width: 80px; padding: 6px; }
+    
+    /* AI Generator Section */
+    #ai-generator {
+      background: rgba(22,22,31,0.45);
+      border: 1px solid #242434;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    .ai-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .ai-slot { background: #1b1b2a; border: 1px solid #2d2d45; padding: 12px; border-radius: 8px; }
+    .ai-slot h3 { margin: 0 0 10px 0; font-size: 14px; color: #9db3ff; }
+    .ai-slot input[type="text"] { width: 100%; padding: 6px; background: #0b0b0f; border: 1px solid #3a3a56; color: #eaeaf0; border-radius: 4px; margin-bottom: 8px; }
+    .ai-slot button { width: 100%; background: #6a8dff; color: #fff; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-size: 12px; }
+    .ai-slot button:hover { filter: brightness(1.1); }
+    .ai-slot button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .ai-status { font-size: 11px; margin-top: 6px; }
+    .ai-status.generating { color: #ffa726; }
+    .ai-status.ready { color: #4caf50; }
+    .ai-status.error { color: #f44336; }
+    .load-btn { margin-top: 6px; background: #4caf50 !important; }
+    .load-btn:disabled { background: #666 !important; }
+    
+    /* Sampler */
+    .channels { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .channel {
+      background: rgba(22,22,31,0.55);
+      border: 1px solid #242434;
+      padding: 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px #0005;
+    }
+    .drop {
+      height: 70px;
+      border: 2px dashed #3a3a56;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      margin-bottom: 6px;
+      color:#a9a9d1;
+      font-size: 12px;
+      text-align: center;
+      background: rgba(20,20,30,0.25);
+    }
+    .drop.loaded { border-color: #4caf50; color: #c5f7c8; }
+    .vol label, .fx label { display: block; margin: 6px 0; font-size: 12px; }
+    
+    /* Sequencer */
+    #grid { display: grid; grid-template-columns: repeat(16, 28px); gap: 6px; margin-top: 8px; }
+    .cell { width: 28px; height: 28px; background: #1b1b2a; border: 1px solid #2d2d45; border-radius: 6px; cursor: pointer; transition: transform 0.05s; }
+    .cell.active { background: #6a8dff; border-color: #9db3ff; }
+    .cell.current { outline: 2px solid #fff; }
+    
+    /* Effects */
+    .fx-grid { display: grid; grid-template-columns: repeat(4, minmax(200px, 1fr)); gap: 16px; }
+    .fx { background: #16161f; border: 1px solid #242434; padding: 12px; border-radius: 12px; }
+    .fx h3 { margin: 0 0 10px 0; font-size: 14px; }
+    
+    /* Visuals */
+    #viz { width: 100%; height: 220px; background: radial-gradient(1200px 220px at center, #12121a, #0b0b0f); border-radius: 12px; border: 1px solid #242434; }
+    .viz-controls label { margin-right: 12px; font-size: 13px; }
+    
+    button { background:#2b2b40; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; }
+    button:hover { filter: brightness(1.1); }
+    input[type="range"] { width: 100%; }
+    input[type="number"] { padding: 6px; background: #1b1b2a; border: 1px solid #3a3a56; color: #eaeaf0; border-radius: 4px; }
+
+    footer {
+      margin-top: auto;
+      padding: 16px 0 8px 0;
+      text-align: center;
+      background: rgba(18,18,26,0.7);
+      border-top: 1px solid #242434;
+    }
+  </style>
+</head>
+<body>
+  <!-- Dynamic Video Background -->
+  <video id="bg-video" autoplay loop muted playsinline style="position:fixed;top:0;left:0;width:100vw;height:100vh;object-fit:cover;z-index:-2;filter: brightness(0.7) saturate(1.2);">
+    <source src="/videos/PlasmaCloudsDynamic.mp4" type="video/mp4">
+  </video>
+  <!-- Color overlay for blending -->
+  <div style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(120deg,rgba(24,24,40,0.7),rgba(60,80,180,0.25));z-index:-1;pointer-events:none;"></div>
+
+  <header>
+    <h1> MIX & MELODIES</h1>
+    <div class="tempo">
+      <label>BPM
+        <input type="number" id="bpm" value="120" min="40" max="240">
+      </label>
+      <button id="startSeq">▶ Play</button>
+      <button id="stopSeq">■ Stop</button>
+    </div>
+  </header>
+
+  <section id="ai-generator">
+    <h2>🤖 AI Music Generator (5 Channels)</h2>
+    <p class="muted">Generate AI music and load directly into sampler channels</p>
+    <div class="ai-grid">
+      <!-- AI generator slots will be created dynamically -->
+    </div>
+  </section>
+
+  <section id="sampler">
+    <h2>🎛️ Sampler (5 Channels)</h2>
+    <p class="muted">Drag & drop your own samples or use AI-generated tracks above</p>
+    <div class="channels">
+      <!-- Channels will be generated dynamically -->
+    </div>
+  </section>
+
+  <section id="sequencer">
+    <h2>🎹 Step Sequencer (16 steps)</h2>
+    <div id="grid"></div>
+  </section>
+
+  <section id="effects">
+    <h2>🎚️ Effects</h2>
+    <div class="fx-grid">
+      <div class="fx">
+        <h3>EQ</h3>
+        <label>Low <input type="range" id="eqLow" min="-15" max="15" step="0.1" value="0"></label>
+        <label>Mid <input type="range" id="eqMid" min="-15" max="15" step="0.1" value="0"></label>
+        <label>High <input type="range" id="eqHigh" min="-15" max="15" step="0.1" value="0"></label>
+      </div>
+      <div class="fx">
+        <h3>Delay</h3>
+        <label>Time (s) <input type="range" id="delayTime" min="0" max="1" step="0.01" value="0.25"></label>
+        <label>Feedback <input type="range" id="delayFb" min="0" max="0.95" step="0.01" value="0.3"></label>
+        <label>Mix <input type="range" id="delayMix" min="0" max="1" step="0.01" value="0.25"></label>
+      </div>
+      <div class="fx">
+        <h3>Reverb</h3>
+        <label>Wet <input type="range" id="reverbWet" min="0" max="1" step="0.01" value="0"></label>
+      </div>
+      <div class="fx">
+        <h3>Dynamics</h3>
+        <label>Compressor <input type="range" id="compThr" min="-60" max="0" step="1" value="-24"></label>
+        <label>Ratio <input type="range" id="compRatio" min="1" max="20" step="1" value="12"></label>
+        <label>Master <input type="range" id="masterGain" min="0" max="2" step="0.01" value="1"></label>
+      </div>
+    </div>
+  </section>
+
+  <section id="visuals">
+    <h2>✨ DJ Visuals</h2>
+    <canvas id="viz" width="1100" height="220"></canvas>
+    <div class="viz-controls">
+      <label><input type="checkbox" id="pulse" checked> Pulse on Beat</label>
+      <label><input type="checkbox" id="glow" checked> Glow</label>
+      <label><input type="checkbox" id="spotlight" checked> Spotlight</label>
+    </div>
+  </section>
+
+  <script>
+    // Audio setup
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const NUM_CHANNELS = 5;
+    const STEPS = 16;
+
+    // Per-channel state
+    const buffers = new Array(NUM_CHANNELS);
+    const gains = Array.from({length: NUM_CHANNELS}, () => audioCtx.createGain());
+    gains.forEach(g => g.gain.value = 1);
+
+    // AI generation state
+    const aiJobs = new Array(NUM_CHANNELS).fill(null);
+    const aiUrls = new Array(NUM_CHANNELS).fill(null);
+
+    // Master bus & FX
+    const masterGain = audioCtx.createGain();
+    masterGain.gain.value = 1;
+
+    const eqLow = audioCtx.createBiquadFilter(); eqLow.type = 'lowshelf'; eqLow.frequency.value = 120; eqLow.gain.value = 0;
+    const eqMid = audioCtx.createBiquadFilter(); eqMid.type = 'peaking';  eqMid.frequency.value = 1000; eqMid.Q.value = 1; eqMid.gain.value = 0;
+    const eqHigh= audioCtx.createBiquadFilter(); eqHigh.type= 'highshelf'; eqHigh.frequency.value = 6000; eqHigh.gain.value = 0;
+
+    const delay = audioCtx.createDelay(1.0);
+    delay.delayTime.value = 0.25;
+    const delayGain = audioCtx.createGain(); delayGain.gain.value = 0.25;
+    const delayFb = audioCtx.createGain(); delayFb.gain.value = 0.3;
+    delay.connect(delayFb).connect(delay);
+
+    const convolver = audioCtx.createConvolver();
+    const reverbWet = audioCtx.createGain(); reverbWet.gain.value = 0;
+
+    const compressor = audioCtx.createDynamicsCompressor();
+    compressor.threshold.value = -24; compressor.ratio.value = 12; compressor.knee.value = 30; compressor.attack.value = 0.003; compressor.release.value = 0.25;
+
+    const limiter = audioCtx.createDynamicsCompressor();
+    limiter.threshold.value = -1; limiter.knee.value = 0; limiter.ratio.value = 20; limiter.attack.value = 0.001; limiter.release.value = 0.01;
+
+    const analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 2048;
+
+    // Wire audio graph
+    const channelSum = audioCtx.createGain();
+    gains.forEach(g => g.connect(channelSum));
+
+    const dryGain = audioCtx.createGain(); dryGain.gain.value = 1;
+
+    channelSum.connect(eqLow);
+    eqLow.connect(eqMid);
+    eqMid.connect(eqHigh);
+
+    eqHigh.connect(dryGain);
+    eqHigh.connect(delay);
+    eqHigh.connect(reverbWet);
+
+    delay.connect(delayGain);
+    convolver.connect(reverbWet);
+
+    const postFXSum = audioCtx.createGain();
+    dryGain.connect(postFXSum);
+    delayGain.connect(postFXSum);
+    reverbWet.connect(postFXSum);
+
+    postFXSum.connect(compressor);
+    compressor.connect(limiter);
+    limiter.connect(analyser);
+    analyser.connect(masterGain);
+    masterGain.connect(audioCtx.destination);
+
+    // Build AI Generator UI
+    const aiGrid = document.querySelector('.ai-grid');
+    for (let i = 0; i < NUM_CHANNELS; i++) {
+      const slot = document.createElement('div');
+      slot.className = 'ai-slot';
+      slot.innerHTML = `
+        <h3>Channel ${i+1}</h3>
+        <input type="text" class="ai-prompt" placeholder="e.g. lofi beat, drum loop" data-id="${i}">
+        <button class="gen-btn" data-id="${i}">🎵 Generate</button>
+        <div class="ai-status" data-id="${i}"></div>
+        <button class="load-btn" data-id="${i}" disabled>↓ Load to Sampler</button>
+      `;
+      aiGrid.appendChild(slot);
+    }
+
+    // AI Generation handlers
+    document.querySelectorAll('.gen-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id = parseInt(btn.dataset.id);
+        const prompt = document.querySelector(`.ai-prompt[data-id="${id}"]`).value;
+        const status = document.querySelector(`.ai-status[data-id="${id}"]`);
+        const loadBtn = document.querySelector(`.load-btn[data-id="${id}"]`);
+        
+        if (!prompt) {
+          status.textContent = '⚠️ Enter a prompt';
+          status.className = 'ai-status error';
+          return;
+        }
+
+        btn.disabled = true;
+        status.textContent = '🔄 Generating...';
+        status.className = 'ai-status generating';
+
+        try {
+          const res = await fetch('/api/generate-music', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt })
+          });
+
+          const data = await res.json();
+          
+          if (data.success && data.audioUrl) {
+            aiUrls[id] = data.audioUrl;
+            aiJobs[id] = data.jobId;
+            status.textContent = '✓ Ready!';
+            status.className = 'ai-status ready';
+            loadBtn.disabled = false;
+          } else {
+            status.textContent = '❌ ' + (data.error || 'Failed');
+            status.className = 'ai-status error';
+          }
+        } catch (err) {
+          status.textContent = '❌ Error: ' + err.message;
+          status.className = 'ai-status error';
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    });
+
+    // Load AI audio to sampler
+    document.querySelectorAll('.load-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id = parseInt(btn.dataset.id);
+        const url = aiUrls[id];
+        if (!url) return;
+
+        try {
+          const response = await fetch(url);
+          const arrayBuffer = await response.arrayBuffer();
+          buffers[id] = await audioCtx.decodeAudioData(arrayBuffer);
+          
+          const drop = document.querySelector(`.drop[data-id="${id}"]`);
+          drop.textContent = `AI: ${document.querySelector(`.ai-prompt[data-id="${id}"]`).value.substring(0, 20)}`;
+          drop.classList.add('loaded');
+        } catch (err) {
+          alert('Error loading audio: ' + err.message);
+        }
+      });
+    });
+
+    // Build sampler UI
+    const channelsDiv = document.querySelector('.channels');
+    for (let i = 0; i < NUM_CHANNELS; i++) {
+      const wrap = document.createElement('div');
+      wrap.className = 'channel';
+
+      const drop = document.createElement('div');
+      drop.className = 'drop';
+      drop.textContent = `Drop Sample ${i+1}`;
+      drop.dataset.id = i;
+
+      const vol = document.createElement('div');
+      vol.className = 'vol';
+      vol.innerHTML = `<label>Vol <input type="range" min="0" max="2" step="0.01" value="1" data-id="${i}" class="volSlider"></label>`;
+
+      wrap.appendChild(drop);
+      wrap.appendChild(vol);
+      channelsDiv.appendChild(wrap);
+    }
+
+    // Drag & drop
+    document.querySelectorAll('.drop').forEach(el => {
+      el.addEventListener('dragover', e => { e.preventDefault(); });
+      el.addEventListener('drop', async e => {
+        e.preventDefault();
+        const id = parseInt(el.dataset.id);
+        const file = e.dataTransfer.files[0];
+        if (!file) return;
+        const arr = await file.arrayBuffer();
+        buffers[id] = await audioCtx.decodeAudioData(arr);
+        el.textContent = file.name;
+        el.classList.add('loaded');
+      });
+    });
+
+    // Volume
+    document.querySelectorAll('.volSlider').forEach(s => {
+      s.addEventListener('input', e => {
+        const id = parseInt(e.target.dataset.id);
+        gains[id].gain.value = parseFloat(e.target.value);
+      });
+    });
+
+    // Sequencer grid
+    let pattern = Array.from({length: NUM_CHANNELS}, () => new Array(STEPS).fill(0));
+    const grid = document.getElementById('grid');
+
+    for (let r = 0; r < NUM_CHANNELS; r++) {
+      for (let c = 0; c < STEPS; c++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.dataset.r = r; cell.dataset.c = c;
+        cell.addEventListener('click', () => {
+          pattern[r][c] = pattern[r][c] ? 0 : 1;
+          cell.classList.toggle('active');
+        });
+        grid.appendChild(cell);
+      }
+    }
+
+    // Transport
+    let currentStep = 0;
+    let timer = null;
+
+    function stepPlay() {
+      const scheduleTime = audioCtx.currentTime;
+
+      for (let i = 0; i < NUM_CHANNELS; i++) {
+        if (pattern[i][currentStep] && buffers[i]) {
+          const src = audioCtx.createBufferSource();
+          src.buffer = buffers[i];
+          src.connect(gains[i]);
+          src.start(scheduleTime);
+        }
+      }
+
+      highlightStep(currentStep);
+      currentStep = (currentStep + 1) % STEPS;
+    }
+
+    function highlightStep(step) {
+      document.querySelectorAll('.cell').forEach(cell => {
+        const c = parseInt(cell.dataset.c);
+        if (c === step) cell.classList.add('current'); else cell.classList.remove('current');
+      });
+    }
+
+    function startSeq() {
+      if (timer) return;
+      const bpm = parseFloat(document.getElementById('bpm').value || 120);
+      const intervalMs = (60000 / bpm) / 4;
+      timer = setInterval(stepPlay, intervalMs);
+      audioCtx.resume();
+    }
+
+    function stopSeq() {
+      if (timer) clearInterval(timer);
+      timer = null;
+    }
+
+    document.getElementById('startSeq').addEventListener('click', startSeq);
+    document.getElementById('stopSeq').addEventListener('click', stopSeq);
+    document.getElementById('bpm').addEventListener('change', () => {
+      if (timer) { stopSeq(); startSeq(); }
+    });
+
+    // FX controls
+    document.getElementById('eqLow').addEventListener('input', e => eqLow.gain.value = parseFloat(e.target.value));
+    document.getElementById('eqMid').addEventListener('input', e => eqMid.gain.value = parseFloat(e.target.value));
+    document.getElementById('eqHigh').addEventListener('input', e => eqHigh.gain.value = parseFloat(e.target.value));
+    document.getElementById('delayTime').addEventListener('input', e => delay.delayTime.value = parseFloat(e.target.value));
+    document.getElementById('delayFb').addEventListener('input', e => delayFb.gain.value = parseFloat(e.target.value));
+    document.getElementById('delayMix').addEventListener('input', e => delayGain.gain.value = parseFloat(e.target.value));
+    document.getElementById('reverbWet').addEventListener('input', e => reverbWet.gain.value = parseFloat(e.target.value));
+    document.getElementById('compThr').addEventListener('input', e => compressor.threshold.value = parseFloat(e.target.value));
+    document.getElementById('compRatio').addEventListener('input', e => compressor.ratio.value = parseFloat(e.target.value));
+    document.getElementById('masterGain').addEventListener('input', e => masterGain.gain.value = parseFloat(e.target.value));
+
+    // Visuals
+    const canvas = document.getElementById('viz');
+    const ctx = canvas.getContext('2d');
+    const freqs = new Uint8Array(analyser.frequencyBinCount);
+    const timeData = new Uint8Array(analyser.fftSize);
+
+    let pulseEnabled = true, glowEnabled = true, spotlightEnabled = true;
+    document.getElementById('pulse').addEventListener('change', e => pulseEnabled = e.target.checked);
+    document.getElementById('glow').addEventListener('change', e => glowEnabled = e.target.checked);
+    document.getElementById('spotlight').addEventListener('change', e => spotlightEnabled = e.target.checked);
+
+    let beatHold = 0, beatDecay = 0.97, beatThreshold = 180, beatMaxHold = 8;
+    function draw() {
+      requestAnimationFrame(draw);
+      analyser.getByteFrequencyData(freqs);
+      analyser.getByteTimeDomainData(timeData);
+
+      const w = canvas.width, h = canvas.height;
+      ctx.clearRect(0,0,w,h);
+
+      if (spotlightEnabled) {
+        const grd = ctx.createRadialGradient(w/2, h/2, 50, w/2, h/2, Math.max(w,h)/1.2);
+        grd.addColorStop(0, 'rgba(255,255,255,0.04)');
+        grd.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = grd;
+        ctx.fillRect(0,0,w,h);
+      }
+
+      let bass = 0;
+      const bassBins = Math.max(1, Math.floor(freqs.length * 0.08));
+      for (let i=0;i<bassBins;i++) bass += freqs[i];
+      bass /= bassBins;
+
+      if (bass > beatThreshold && beatHold === 0) {
+        beatHold = beatMaxHold;
+      } else if (beatHold > 0) {
+        beatHold--;
+      }
+      beatThreshold = beatThreshold * beatDecay + bass * (1 - beatDecay);
+
+      const bars = 64;
+      const step = Math.floor(freqs.length / bars);
+      for (let i=0;i<bars;i++) {
+        const mag = freqs[i*step] / 255;
+        const barH = mag * (h - 20);
+        const x = (i / bars) * w;
+        const y = h - barH;
+        if (glowEnabled) {
+          ctx.shadowBlur = 10 + mag * 30;
+          ctx.shadowColor = 'rgba(120,160,255,0.8)';
+        } else {
+          ctx.shadowBlur = 0;
+        }
+        ctx.fillStyle = `rgba(${120+mag*100}, ${140+mag*80}, 255, ${0.8})`;
+        ctx.fillRect(x, y, w/bars - 2, barH);
+      }
+
+      if (pulseEnabled && beatHold > 0) {
+        ctx.fillStyle = 'rgba(255,255,255,0.07)';
+        ctx.fillRect(0,0,w,h);
+      }
+
+      ctx.beginPath();
+      const slice = w / timeData.length;
+      for (let i=0;i<timeData.length;i++) {
+        const v = timeData[i] / 255;
+        const y = v * h;
+        const x = i * slice;
+        if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = 'rgba(200,220,255,0.6)';
+      ctx.stroke();
+    }
+    requestAnimationFrame(draw);
+  </script>
+</body>
+</html>

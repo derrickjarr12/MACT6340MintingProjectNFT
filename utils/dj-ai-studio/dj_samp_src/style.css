@@ -1,0 +1,114 @@
+* { box-sizing: border-box; }
+body {
+	margin: 0;
+	font-family: system-ui, Arial, sans-serif;
+	background: url('/public/images/AlbumCover.jpeg') center center/cover no-repeat fixed;
+	color: #eaeaf0;
+}
+header { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: #12121a; position: sticky; top:0; z-index:10; border-bottom: 1px solid #1f1f28; }
+h1 { margin: 0; font-size: 20px; }
+section { padding: 16px 20px; }
+
+/* Sampler album cover background */
+#sampler {
+	position: relative;
+	background: rgba(10,10,20,0.45);
+	border-radius: 18px;
+	min-height: 340px;
+	box-shadow: 0 4px 32px #000a;
+	overflow: hidden;
+}
+#sampler h2 {
+	position: relative;
+	z-index: 2;
+	background: rgba(20,20,30,0.35);
+	display: inline-block;
+	padding: 6px 18px;
+	border-radius: 10px;
+	margin-bottom: 12px;
+}
+#sampler .channels {
+	position: relative;
+	z-index: 2;
+}
+#sampler > * {
+	position: relative;
+	z-index: 2;
+}
+.channel {
+	background: rgba(22,22,31,0.55);
+	border: 1px solid #242434;
+	padding: 10px;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px #0005;
+}
+.muted { opacity: 0.7; font-size: 12px; }
+.tempo input { width: 80px; }
+.channels { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.channel { background: #16161f; border: 1px solid #242434; padding: 10px; border-radius: 12px; }
+.drop {
+	width: 90px;
+	height: 90px;
+	border: 4px solid #222;
+	border-radius: 50%;
+	background: radial-gradient(circle at 60% 40%, #222 60%, #111 100%);
+	box-shadow: 0 2px 12px #0007, 0 0 0 6px #191919 inset;
+	margin: 0 auto 10px auto;
+	color: #eaeaf0;
+	position: relative;
+	font-family: 'Arial Black', Arial, sans-serif;
+	font-size: 13px;
+	transition: box-shadow 0.2s, border-color 0.2s;
+	cursor: pointer;
+	display: block;
+}
+.drop-label {
+	display: block;
+	text-align: center;
+	margin-bottom: 4px;
+	color: #eaeaf0;
+	font-size: 13px;
+	font-family: 'Arial Black', Arial, sans-serif;
+}
+.drop::before {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 28px;
+	height: 28px;
+	background: #d32f2f;
+	border-radius: 50%;
+	z-index: 1;
+	box-shadow: 0 0 0 3px #d32f2f55, 0 0 8px #d32f2f33;
+}
+.drop span, .drop.loaded {
+	z-index: 2;
+	position: relative;
+	color: #222;
+	font-weight: bold;
+}
+.drop.loaded {
+	border-color: #4caf50;
+	box-shadow: 0 2px 16px #4caf5077, 0 0 0 6px #191919 inset;
+	color: #222;
+}
+.drop.dragover {
+	border-color: #fff200;
+	box-shadow: 0 0 24px #fff20099, 0 0 0 6px #191919 inset;
+}
+.vol label, .fx label { display: block; margin: 6px 0; }
+#grid { display: grid; grid-template-columns: repeat(16, 28px); gap: 6px; margin-top: 8px; }
+.row { display: contents; }
+.cell { width: 28px; height: 28px; background: #1b1b2a; border: 1px solid #2d2d45; border-radius: 6px; cursor: pointer; transition: transform 0.05s; }
+.cell.active { background: #6a8dff; border-color: #9db3ff; }
+.cell.current { outline: 2px solid #fff; }
+.fx-grid { display: grid; grid-template-columns: repeat(4, minmax(200px, 1fr)); gap: 16px; }
+.fx { background: #16161f; border: 1px solid #242434; padding: 12px; border-radius: 12px; }
+.file-btn input[type="file"] { display: inline-block; }
+#viz { width: 100%; height: 220px; background: radial-gradient(1200px 220px at center, #12121a, #0b0b0f); border-radius: 12px; border: 1px solid #242434; }
+.viz-controls label { margin-right: 12px; }
+button { background:#2b2b40; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; }
+button:hover { filter: brightness(1.1); }
+input[type="range"] { width: 100%; }
