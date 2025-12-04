@@ -1,8 +1,3 @@
-  app.get("/about", (_req, res) => {
-    res.render("about.ejs");
-  });
-
-
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
@@ -51,7 +46,9 @@ import * as db from "./utils/database.js";
     res.render("index.ejs", {
       sunburstImg: "/images/sunBurst.png",
       techImg: "/images/Tech.png",
-      visualArtImg: "/images/VisualArt.png"
+      visualArtImg: "/images/VisualArt.png",
+      AbstractImg: "/images/Abstract.jpeg",
+      PortfolioCollectionsImg: "/images/Porfolio Collections.jpeg"
     });
   });
 
@@ -59,8 +56,14 @@ import * as db from "./utils/database.js";
     res.render("index.ejs", {
       sunburstImg: "/images/sunBurst.png",
       techImg: "/images/Tech.png",
-      visualArtImg: "/images/VisualArt.png"
+      visualArtImg: "/images/VisualArt.png",
+      AbstractImg: "/images/Abstract.jpeg",
+      PortfolioCollectionsImg: "/images/Porfolio Collections.jpeg"
     });
+  });
+
+  app.get("/about", (_req, res) => {
+    res.render("about.ejs");
   });
 
   app.get("/project", (_req, res) => {
