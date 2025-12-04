@@ -7,13 +7,3 @@ node_modules/
 /scratch
 portfolio
 scratch.txt
-dist/
-.vscode/
-npm-debug.log
-yarn-error.log
-.idea/
-coverage/
-*.log
-*.tmp
-*.bak
-*.swp

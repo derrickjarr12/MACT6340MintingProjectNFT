@@ -1,0 +1,21 @@
+SELECT * FROM projects WHERE active =0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

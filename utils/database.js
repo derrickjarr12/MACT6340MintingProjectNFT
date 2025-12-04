@@ -1,6 +1,7 @@
 import mysql from "mysql2";
-
+import fs from "fs";
 let pool;
+
 
 export async function connect() {
     let cString = 
