@@ -45,16 +45,16 @@ import * as db from "./utils/database.js";
   app.get("/", (_req, res) => {
     res.render("index.ejs", {
       sunburstImg: "/images/sunBurst.png",
-      techImg: "/images/Tech.png",
-      visualArtImg: "/images/VisualArt.png"
+      techImg: "/images/TECH.png",
+      visualArtImg: "/images/VISUAL_ART.png"
     });
   });
 
   app.get("/home", (_req, res) => {
     res.render("index.ejs", {
       sunburstImg: "/images/sunBurst.png",
-      techImg: "/images/Tech.png",
-      visualArtImg: "/images/VisualArt.png"
+      techImg: "/images/TECH.png",
+      visualArtImg: "/images/VISUAL_ART.png"
     });
   });
 
