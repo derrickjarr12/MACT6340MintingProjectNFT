@@ -22,9 +22,9 @@ import * as db from "./utils/database.js";
       console.error('Database connection failed:', error.message);
       console.log('Falling back to demo data...');
           data = [
-            { id: 1, project_name: "Aurora", img_url: process.env.AURORA_IMG_URL, project_description: "Demo project", quantity: 100, price_eth: 0.1 },
-            { id: 2, project_name: "Flares", img_url: process.env.FLARES_IMG_URL, project_description: "Demo project", quantity: 100, price_eth: 0.1 },
-            { id: 3, project_name: "Solar winds", img_url: process.env.SOLARWINDS_IMG_URL, project_description: "Demo project", quantity: 100, price_eth: 0.1 }
+            { id: 1, project_name: "Featured Project", img_url: process.env.AURORA_IMG_URL, project_description: "Featured Project", quantity: 100, price_eth: 0.1 },
+            { id: 2, project_name: "Upcoming Project", img_url: process.env.FLARES_IMG_URL, project_description: "Upcoming Project", quantity: 100, price_eth: 0.1 },
+            { id: 3, project_name: "Upcoming Project", img_url: process.env.SOLARWINDS_IMG_URL, project_description: "Upcoming Project", quantity: 100, price_eth: 0.1 }
           ];
   }
 
@@ -124,6 +124,10 @@ import * as db from "./utils/database.js";
     res.render("distortion.ejs");
   });
 
+  app.get("/dj-ai-studio", (_req, res) => {
+    res.render("dj-ai-studio.ejs");
+  });
+
   app.get("/dj-sampler", (_req, res) => {
     res.render("dj-sampler.ejs");
   });
@@ -142,6 +146,12 @@ import * as db from "./utils/database.js";
     if(isNaN(id) || id < 1 || id > data.length) {
       return res.status(404).render("errors/404.ejs");
     }
+    if (id === 2) {
+      return res.redirect('/distortion'); // Route Flares detail to Distortion page with video
+    }
+    if (id === 3) {
+      return res.redirect('/dj-ai-studio'); // Route SolarWinds detail to DJ AI Studio page
+    }
     res.render("project.ejs", {projectArray: data, which: id});
   });
 
@@ -150,6 +160,12 @@ import * as db from "./utils/database.js";
     let id = parseInt(req.params.id);
     if(isNaN(id) || id < 1 || id > data.length) {
       return res.status(404).render("errors/404.ejs");
+    }
+    if (id === 2) {
+      return res.redirect('/distortion');
+    }
+    if (id === 3) {
+      return res.redirect('/dj-ai-studio');
     }
     res.render("project.ejs", {projectArray: data, which: id});
   });

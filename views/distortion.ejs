@@ -30,7 +30,7 @@
     .controls {
         position: absolute;
         top: 120px;
-        left: 20px;
+        left: 10px;
         color: white;
         z-index: 10;
         background: rgba(0,0,0,0.8);
@@ -38,8 +38,9 @@
         border-radius: 8px;
         display: flex;
         flex-direction: column;
-            gap: 8px;
-        }
+        align-items: flex-start;
+        gap: 8px;
+    }
         
         #demo-container {
             position: relative;
@@ -56,11 +57,12 @@
             background: #333;
             color: white;
             border: none;
-            padding: 8px 12px;
+            padding: 10px 12px;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 0.9rem;
-            min-width: 80px;
+            min-width: 120px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -98,28 +100,18 @@
         }
     </style>
 
-    <%- include('partials/header'); %>
-    
     <div class="controls">
-        <button id="playAudioBtn" onclick="toggleAudio()">
-            <i class="fas fa-volume-up"></i> Play Audio
-        </button>
-        <button id="pauseAudioBtn" onclick="pauseAudio()" style="display:none;">
-            <i class="fas fa-volume-mute"></i> Mute Audio
-        </button>
-        <button id="muteVideoBtn" onclick="toggleVideoSound()">
-            <i class="fas fa-volume-off"></i> Video Sound
-        </button>
-        <div class="audio-status" id="status">Ready</div>
+        <a href="/Projects" class="btn btn-outline-light">Back to Projects</a>
     </div>
     
     <div id="demo-container">
-        <video id="distortion-video" 
-               autoplay 
-               loop 
-               muted 
-               playsinline
-               style="max-width: 1200px; width: 100%; border-radius: 15px; border: 2px solid #333;">
+         <!-- Keep muted for autoplay; remove muted to allow video audio (user gesture likely required) -->
+         <video id="distortion-video" 
+             autoplay 
+             loop 
+             muted 
+             playsinline
+             style="max-width: 1200px; width: 100%; border-radius: 15px; border: 2px solid #333;">
             <source src="/videos/distortion.mp4" type="video/mp4">
             <source src="/videos/distortion.webm" type="video/webm">
             Your browser does not support the video tag.

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ AI Studio - Interactive Audio Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        #video-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            color: white;
+            z-index: 100;
+            background: rgba(0,0,0,0.8);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .controls button {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            min-width: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .controls button:hover {
+            background: #555;
+            transform: translateY(-2px);
+        }
+        
+        .controls button:active {
+            transform: translateY(0);
+        }
+        
+        .audio-status {
+            color: #0f0;
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 8px 0;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin-top: 5px;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(-5px);
+        }
+
+        .title-overlay {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            z-index: 100;
+            text-align: center;
+            background: rgba(0,0,0,0.6);
+            padding: 15px 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .title-overlay h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .title-overlay p {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="window.location.href='/Projects'">
+        <i class="fas fa-arrow-left"></i> Back to Projects
+    </button>
+
+    <div class="controls">
+        <button id="playAudioBtn" onclick="toggleAudio()">
+            <i class="fas fa-volume-up"></i> Play Audio
+        </button>
+        <button id="pauseAudioBtn" onclick="pauseAudio()" style="display:none;">
+            <i class="fas fa-volume-mute"></i> Mute Audio
+        </button>
+        <button id="muteVideoBtn" onclick="toggleVideoSound()">
+            <i class="fas fa-volume-off"></i> Video Sound
+        </button>
+        <div class="audio-status" id="status">Ready</div>
+    </div>
+
+    <div class="title-overlay">
+        <h1>DJ AI Studio</h1>
+        <p>Interactive Audio-Visual Experience</p>
+    </div>
+    
+    <div id="video-container">
+        <video id="dj-ai-studio-video" 
+               autoplay 
+               loop 
+               muted 
+               playsinline>
+            <source src="/videos/dj-ai-studio.mp4" type="video/mp4">
+            <source src="/videos/dj-ai-studio.webm" type="video/webm">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
+    <script src="/js/dj-ai-studio-video.js"></script>
+</body>
+</html>

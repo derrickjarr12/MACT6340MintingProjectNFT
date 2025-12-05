@@ -39,7 +39,20 @@
       %>
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100 shadow-lg project-card" style="transition: transform 0.3s ease, box-shadow 0.3s ease;">
-            <% if (projectDetails[index]?.image) { %>
+            <% if (index === 1) { %>
+            <div class="card-img-top position-relative" style="height: 200px; background: #000; overflow: hidden;">
+              <!-- Keep muted for autoplay; remove muted to enable video audio (will require user gesture) -->
+              <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
+                <source src="/videos/distortion.mp4" type="video/mp4">
+                <source src="/videos/distortion.webm" type="video/webm">
+              </video>
+              <button class="btn btn-link position-absolute top-0 end-0 m-2 favorite-btn" 
+                      data-project-id="<%= index + 1 %>"
+                      style="background: rgba(0,0,0,0.5); border-radius: 50%; width: 35px; height: 35px; padding: 0;">
+                <i class="far fa-heart text-white"></i>
+              </button>
+            </div>
+            <% } else if (projectDetails[index]?.image) { %>
             <div class="card-img-top position-relative" style="height: 200px; background-image: url('<%= projectDetails[index].image %>'); background-size: cover; background-position: center;">
               <button class="btn btn-link position-absolute top-0 end-0 m-2 favorite-btn" 
                       data-project-id="<%= index + 1 %>"
@@ -48,8 +61,7 @@
               </button>
             </div>
             <% } else { %>
-            <div class="card-img-top position-relative" style="height: 200px; background: <%= projectDetails[index]?.gradient || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' %>; display: flex; align-items: center; justify-content: center;">
-              <i class="<%= projectDetails[index]?.icon || 'fas fa-image' %> fa-4x text-white opacity-75"></i>
+            <div class="card-img-top position-relative" style="height: 200px; background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%);">
               <button class="btn btn-link position-absolute top-0 end-0 m-2 favorite-btn" 
                       data-project-id="<%= index + 1 %>"
                       style="background: rgba(0,0,0,0.5); border-radius: 50%; width: 35px; height: 35px; padding: 0;">
@@ -67,6 +79,8 @@
                   <small class="text-muted">Collection #<%= String(index + 1).padStart(3, '0') %></small>
                   <% if (index === 1) { %>
                     <a href="/distortion" class="btn btn-primary">View Details</a>
+                  <% } else if (index === 2) { %>
+                    <a href="/dj-ai-studio" class="btn btn-primary">View Details</a>
                   <% } else { %>
                     <a href="/Projects/<%= index + 1 %>" class="btn btn-primary">View Details</a>
                   <% } %>
