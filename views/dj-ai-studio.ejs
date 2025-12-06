@@ -1,174 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DJ AI Studio - Interactive Audio Experience</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            width: 100vw;
-            height: 100vh;
-            background: #000;
-            overflow: hidden;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        #video-container {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-        
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .controls {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            color: white;
-            z-index: 100;
-            background: rgba(0,0,0,0.8);
-            padding: 15px;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .controls button {
-            background: #333;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            min-width: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .controls button:hover {
-            background: #555;
-            transform: translateY(-2px);
-        }
-        
-        .controls button:active {
-            transform: translateY(0);
-        }
-        
-        .audio-status {
-            color: #0f0;
-            font-size: 0.85rem;
-            text-align: center;
-            padding: 8px 0;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            margin-top: 5px;
-        }
-
-        .back-button {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 100;
-            background: rgba(0,0,0,0.8);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .back-button:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateX(-5px);
-        }
-
-        .title-overlay {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            z-index: 100;
-            text-align: center;
-            background: rgba(0,0,0,0.6);
-            padding: 15px 30px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-        }
-
-        .title-overlay h1 {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .title-overlay p {
-            font-size: 0.9rem;
-            color: #aaa;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Visuals and Melodies</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <!-- Favicon placeholder: replace 'favicon.ico' with your favicon file when ready -->
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='/Projects'">
-        <i class="fas fa-arrow-left"></i> Back to Projects
-    </button>
+  <!-- Dynamic Video Background -->
+  <video id="bg-video" autoplay loop muted playsinline style="position:fixed;top:0;left:0;width:100vw;height:100vh;object-fit:cover;z-index:-2;filter: brightness(0.9) saturate(1.1) blur(1px);">
+    <source src="/videos/PlasmaCloudsDynamic.mp4" type="video/mp4">
+  </video>
+  <!-- Color overlay for blending -->
+  <div style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(120deg,rgba(24,24,40,0.35),rgba(60,80,180,0.15));z-index:-1;pointer-events:none;"></div>
 
-    <div class="controls">
-        <button id="playAudioBtn" onclick="toggleAudio()">
-            <i class="fas fa-volume-up"></i> Play Audio
-        </button>
-        <button id="pauseAudioBtn" onclick="pauseAudio()" style="display:none;">
-            <i class="fas fa-volume-mute"></i> Mute Audio
-        </button>
-        <button id="muteVideoBtn" onclick="toggleVideoSound()">
-            <i class="fas fa-volume-off"></i> Video Sound
-        </button>
-        <div class="audio-status" id="status">Ready</div>
-    </div>
+  <div class="controls" style="position: fixed; top: 20px; left: 10px; z-index: 10; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 8px;">
+    <a href="/Projects" class="btn btn-outline-light">Back to Projects</a>
+  </div>
 
-    <div class="title-overlay">
-        <h1>DJ AI Studio</h1>
-        <p>Interactive Audio-Visual Experience</p>
+  <header>
+    <h1>Visuals and Melodies</h1>
+    <div class="tempo">
+      <label>BPM
+        <input type="number" id="bpm" value="120" min="40" max="240">
+      </label>
+      <button id="startSeq">▶ Play</button>
+      <button id="stopSeq">■ Stop</button>
     </div>
-    
-    <div id="video-container">
-        <video id="dj-ai-studio-video" 
-               autoplay 
-               loop 
-               muted 
-               playsinline>
-            <source src="/videos/dj-ai-studio.mp4" type="video/mp4">
-            <source src="/videos/dj-ai-studio.webm" type="video/webm">
-            Your browser does not support the video tag.
-        </video>
+  </header>
+
+  <section id="sampler">
+    <h2>Sampler (5 Channels)</h2>
+    <div class="ai-music-gen" style="margin-bottom:18px;">
+      <h3 style="margin:0 0 12px 0;">🤖 AI Music Generator (5 Channels)</h3>
+      <div id="aiGenSlots" style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;">
+        <!-- 5 AI generation slots will be created here -->
+      </div>
     </div>
-    
-    <script src="/js/dj-ai-studio-video.js"></script>
+    <div class="channels">
+      <!-- Channels will be generated dynamically -->
+    </div>
+  </section>
+
+  <section id="sequencer">
+    <h2>Step Sequencer (16 steps)</h2>
+    <div id="grid"></div>
+  </section>
+
+  <section id="effects">
+    <h2>Effects</h2>
+    <div class="fx-grid">
+      <div class="fx">
+        <h3>EQ</h3>
+        <label>Low (lowshelf gain) <input type="range" id="eqLow" min="-15" max="15" step="0.1" value="0"></label>
+        <label>Mid (peaking gain) <input type="range" id="eqMid" min="-15" max="15" step="0.1" value="0"></label>
+        <label>High (highshelf gain) <input type="range" id="eqHigh" min="-15" max="15" step="0.1" value="0"></label>
+      </div>
+      <div class="fx">
+        <h3>Delay</h3>
+        <label>Time (s) <input type="range" id="delayTime" min="0" max="1" step="0.01" value="0.25"></label>
+        <label>Feedback <input type="range" id="delayFb" min="0" max="0.95" step="0.01" value="0.3"></label>
+        <label>Mix <input type="range" id="delayMix" min="0" max="1" step="0.01" value="0.25"></label>
+      </div>
+      <div class="fx">
+        <h3>Reverb</h3>
+        <p class="muted">Convolver without IR by default. Load your own IR for effect.</p>
+        <label>Wet <input type="range" id="reverbWet" min="0" max="1" step="0.01" value="0"></label>
+        <label class="file-btn">Load IR <input type="file" id="irLoader" accept=".wav,.mp3,.ogg,.flac" /></label>
+      </div>
+      <div class="fx">
+        <h3>Dynamics</h3>
+        <label>Compressor Thr (dB) <input type="range" id="compThr" min="-60" max="0" step="1" value="-24"></label>
+        <label>Compressor Ratio <input type="range" id="compRatio" min="1" max="20" step="1" value="12"></label>
+        <label>Limiter Thr (dB) <input type="range" id="limitThr" min="-12" max="0" step="0.5" value="-1"></label>
+        <label>Master Gain <input type="range" id="masterGain" min="0" max="2" step="0.01" value="1"></label>
+      </div>
+    </div>
+  </section>
+
+  <section id="state">
+    <h2>Sample Sets</h2>
+    <button id="saveSet">💾 Save Set</button>
+    <button id="loadSet">📂 Load Set</button>
+    <input type="file" id="setLoader" accept=".json" style="display:none" />
+  </section>
+
+  <section id="visuals">
+    <h2>DJ Visuals</h2>
+    <canvas id="viz" width="1100" height="220"></canvas>
+    <div class="viz-controls">
+      <label><input type="checkbox" id="pulse" checked> Pulse on Beat</label>
+      <label><input type="checkbox" id="glow" checked> Glow</label>
+      <label><input type="checkbox" id="spotlight" checked> Spotlight</label>
+    </div>
+  </section>
+
+  <footer>
+    <p class="muted">No DMX output in this build. Visuals are 2D and react to audio.</p>
+  </footer>
+
+  <script src="/js/renderer.js"></script>
 </body>
 </html>

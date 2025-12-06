@@ -1,0 +1,146 @@
+* { box-sizing: border-box; }
+body {
+	margin: 0;
+	font-family: system-ui, Arial, sans-serif;
+	background: #181828;
+	color: #eaeaf0;
+	position: relative;
+	min-height: 100vh;
+}
+header { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: #12121a; position: sticky; top:0; z-index:10; border-bottom: 1px solid #1f1f28; }
+h1 { margin: 0; font-size: 20px; }
+section { padding: 16px 20px; }
+
+/* Sampler album cover background */
+#sampler {
+	position: relative;
+	background: rgba(10,10,20,0.45);
+	border-radius: 18px;
+	min-height: 340px;
+	box-shadow: 0 4px 32px #000a;
+	overflow: hidden;
+}
+#sampler h2 {
+	position: relative;
+	z-index: 2;
+	background: rgba(20,20,30,0.35);
+	display: inline-block;
+	padding: 6px 18px;
+	border-radius: 10px;
+	margin-bottom: 12px;
+}
+#sampler .channels {
+	position: relative;
+	z-index: 2;
+}
+#sampler > * {
+	position: relative;
+	z-index: 2;
+}
+.channel {
+	background: rgba(22,22,31,0.55);
+	border: 1px solid #242434;
+	padding: 10px;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px #0005;
+}
+.muted { opacity: 0.7; font-size: 12px; }
+.tempo input { width: 80px; }
+.channels { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.channel { background: #16161f; border: 1px solid #242434; padding: 10px; border-radius: 12px; }
+.drop {
+	width: 100px;
+	height: 100px;
+	border: 3px solid #3a3a56;
+	border-radius: 8px;
+	background: url('/images/DropSpins.jpeg') center center/cover no-repeat;
+	box-shadow: 0 4px 20px rgba(0,0,0,0.5), 
+	            inset 0 2px 8px rgba(0,0,0,0.3);
+	margin: 0 auto 12px auto;
+	color: #ffffff;
+	position: relative;
+	font-family: system-ui, Arial, sans-serif;
+	font-size: 11px;
+	font-weight: 700;
+	text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+	transition: all 0.3s ease;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 8px;
+	line-height: 1.3;
+}
+.drop::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.3);
+	border-radius: 6px;
+	z-index: 0;
+	transition: background 0.3s ease;
+}
+.drop:hover {
+	transform: scale(1.05);
+	border-color: #6a8dff;
+	box-shadow: 0 6px 24px rgba(106,141,255,0.4), 
+	            inset 0 2px 8px rgba(0,0,0,0.3);
+}
+.drop:hover::after {
+	background: rgba(106,141,255,0.2);
+}
+.drop-label {
+	display: block;
+	text-align: center;
+	margin-bottom: 6px;
+	color: #9db3ff;
+	font-size: 12px;
+	font-weight: 600;
+	font-family: system-ui, Arial, sans-serif;
+}
+.drop::before {
+	content: '';
+	display: none;
+}
+.drop span, .drop.loaded {
+	z-index: 3;
+	position: relative;
+	color: #ffffff;
+	font-weight: 700;
+	text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+}
+.drop.loaded {
+	border-color: #4caf50;
+	box-shadow: 0 4px 20px rgba(76,175,80,0.5), 
+	            inset 0 2px 8px rgba(0,0,0,0.3);
+}
+.drop.loaded::after {
+	background: rgba(76,175,80,0.3);
+}
+.drop.dragover {
+	border-color: #ffa726;
+	box-shadow: 0 6px 28px rgba(255,167,38,0.6), 
+	            inset 0 2px 8px rgba(0,0,0,0.3);
+	transform: scale(1.08);
+}
+.drop.dragover::after {
+	background: rgba(255,167,38,0.3);
+}
+.vol label, .fx label { display: block; margin: 6px 0; }
+#grid { display: grid; grid-template-columns: repeat(16, 28px); gap: 6px; margin-top: 8px; }
+.row { display: contents; }
+.cell { width: 28px; height: 28px; background: #1b1b2a; border: 1px solid #2d2d45; border-radius: 6px; cursor: pointer; transition: transform 0.05s; }
+.cell.active { background: #6a8dff; border-color: #9db3ff; }
+.cell.current { outline: 2px solid #fff; }
+.fx-grid { display: grid; grid-template-columns: repeat(4, minmax(200px, 1fr)); gap: 16px; }
+.fx { background: #16161f; border: 1px solid #242434; padding: 12px; border-radius: 12px; }
+.file-btn input[type="file"] { display: inline-block; }
+#viz { width: 100%; height: 220px; background: radial-gradient(1200px 220px at center, #12121a, #0b0b0f); border-radius: 12px; border: 1px solid #242434; }
+.viz-controls label { margin-right: 12px; }
+button { background:#2b2b40; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; }
+button:hover { filter: brightness(1.1); }
+input[type="range"] { width: 100%; }

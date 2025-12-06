@@ -367,4 +367,56 @@ footer {
   position: relative;
   z-index: 1;
 }
+
+/* DJ Studio Sequencer Styles */
+#grid {
+  display: grid;
+  grid-template-columns: repeat(16, 28px);
+  gap: 6px;
+  margin-top: 8px;
+}
+
+#sub-grid {
+  display: grid !important;
+  grid-template-columns: repeat(16, 24px) !important;
+  gap: 4px !important;
+  margin-top: 8px;
+}
+
+.cell {
+  width: 28px;
+  height: 28px;
+  background: #1b1b2a;
+  border: 1px solid #2d2d45;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.05s;
+}
+
+.sub-cell {
+  width: 24px;
+  height: 24px;
+  background: #2d2d40;
+  border: 1px solid #3a3a56;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.05s;
+}
+
+.cell.active,
+.sub-cell.active {
+  background: #6a8dff;
+  border-color: #9db3ff;
+}
+
+.cell.current,
+.sub-cell.current {
+  outline: 2px solid #fff;
+}
+
+.sub-cell.active {
+  background: #4a6dff;
+  box-shadow: 0 0 8px rgba(106, 141, 255, 0.5);
+}
   
+
