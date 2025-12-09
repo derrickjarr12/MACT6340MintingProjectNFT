@@ -5,6 +5,30 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
+
+/* Accessibility - Skip Link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #667eea;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Focus Indicators for Keyboard Navigation */
+a:focus, button:focus, input:focus, textarea:focus, select:focus {
+  outline: 3px solid #667eea;
+  outline-offset: 2px;
+}
+
 /*Project styles */
 body {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

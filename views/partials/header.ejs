@@ -33,9 +33,12 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <!-- Skip to main content link for keyboard users -->
+  <a href="#main-content" class="skip-link visually-hidden-focusable position-absolute top-0 start-0 bg-primary text-white p-2 m-2" style="z-index:9999;">Skip to main content</a>
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation" aria-label="Main navigation">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center" href="/">
+      <a class="navbar-brand d-flex align-items-center" href="/" aria-label="Home - Projects">
         <img src="/images/SUN.ico" alt="Logo" width="32" height="32" class="me-2">
         Projects
       </a>

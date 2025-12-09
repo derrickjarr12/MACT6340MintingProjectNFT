@@ -177,13 +177,73 @@ import * as db from "./utils/database.js";
 
   app.post("/mail", async (req, res) => {
     await utils
-        .sendMessage(req.body.sub, req.body.txt)
-        .then(() => {
-          res.send({result: "success"});
-        })
-        .catch((_error) => {
-          res.send({result: "failure"});
-        });
+      .sendMessage(req.body.sub, req.body.txt)
+      .then(() => {
+        res.send({ result: "success" });
+      })
+      .catch((_error) => {
+        res.send({ result: "failure" });
+      });
+  });
+
+  // AI Music Generator API (Mock/Demo Mode - Local Audio Files)
+  app.post("/api/generate-music", async (req, res) => {
+    const { prompt } = req.body;
+
+    if (!prompt) {
+      return res.status(400).json({
+        success: false,
+        error: "Prompt is required",
+      });
+    }
+
+    try {
+      // Simulate generation delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Map keywords to demo audio files
+      const promptLower = prompt.toLowerCase();
+      let audioFile = "demo-beat.mp3"; // default
+      let description = "Default beat";
+
+      if (promptLower.includes("bass") || promptLower.includes("deep")) {
+        audioFile = "bass-sample.mp3";
+        description = "Bass-heavy track";
+      } else if (promptLower.includes("drum") || promptLower.includes("beat") || promptLower.includes("rhythm")) {
+        audioFile = "drum-sample.mp3";
+        description = "Drum pattern";
+      } else if (promptLower.includes("synth") || promptLower.includes("electronic") || promptLower.includes("digital")) {
+        audioFile = "synth-sample.mp3";
+        description = "Synth melody";
+      } else if (promptLower.includes("lofi") || promptLower.includes("chill") || promptLower.includes("relaxing")) {
+        audioFile = "lofi-sample.mp3";
+        description = "Lo-fi chill vibes";
+      } else if (promptLower.includes("ambient") || promptLower.includes("pad") || promptLower.includes("atmospheric")) {
+        audioFile = "ambient-sample.mp3";
+        description = "Ambient soundscape";
+      } else if (promptLower.includes("jazz") || promptLower.includes("smooth")) {
+        audioFile = "demo-beat.mp3";
+        description = "Jazz-inspired groove";
+      } else if (promptLower.includes("techno") || promptLower.includes("house") || promptLower.includes("edm")) {
+        audioFile = "drum-sample.mp3";
+        description = "Electronic dance track";
+      }
+
+      return res.json({
+        success: true,
+        audioUrl: `/audio/${audioFile}`,
+        prompt,
+        description,
+        message: "Demo mode: Generated using local audio sample",
+      });
+
+    } catch (error) {
+      console.error("AI music generation error:", error);
+      return res.status(500).json({
+        success: false,
+        error: error?.message || "Music generation failed",
+      });
+    }
   });
 
 

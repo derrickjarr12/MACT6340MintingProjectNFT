@@ -25,8 +25,8 @@
    <%- include('partials/header'); %>
 
    <!-- Video Intro Section -->
-  <div id="video-intro" class="w-100 mb-5" style="position:relative;overflow:hidden;height:100vh;">
-    <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;">
+  <div id="video-intro" class="w-100 mb-5" style="position:relative;overflow:hidden;height:100vh;" aria-label="Video introduction">
+    <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;" aria-label="Welcome video showing digital art exploration">
       <source src="/images/Explore.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
@@ -37,19 +37,19 @@
     </div>
   </div>
    <!-- main content -->
-  <div id="main-content">
+  <main id="main-content" class="py-5">
     <div class="container text-center mb-4">
-      <h1 class="display-1 fw-bold" style="letter-spacing:3px; color:rgba(255,255,255,0.09); text-shadow:0 2px 2px #222; opacity:1;">Sip the Sky</h1>
+      <h2 class="display-1 fw-bold" style="letter-spacing:3px; color:rgba(255,255,255,0.09); text-shadow:0 2px 2px #222; opacity:1;">Sip the Sky</h2>
     </div>
-    <main class="py-5">
+    <div class="container">
       <div class="container">
         
         <!-- Hero Section -->
-        <div style="height:120px;"></div>
-        <section id="hero" class="text-center mb-5">
+        <div style="height:120px;" aria-hidden="true"></div>
+        <section id="hero" class="text-center mb-5" aria-labelledby="hero-heading">
           <div class="row">
             <div class="col-lg-8 mx-auto">
-              <h1 class="display-3 fw-bold mb-4 visually-hidden">The Dreamer's Cafe</h1>
+              <h1 id="hero-heading" class="display-3 fw-bold mb-4 visually-hidden">The Dreamer's Cafe</h1>
               <p class="lead mb-xl-5 visually-hidden"> Let's Chill!.</p>
               <div class="d-grid gap-2 d-md-flex justify-content-md-center visually-hidden">
                 <a href="/project" class="btn btn-primary btn-lg px-4 me-md-2">View Featured Project</a>
@@ -136,9 +136,8 @@
         </section>
 
       </div>
-    </main>
-
-  </div>
+    </div>
+  </main>
 
   <%- include('partials/footer'); %>
 

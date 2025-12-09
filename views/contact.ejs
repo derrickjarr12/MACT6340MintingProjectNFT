@@ -55,29 +55,31 @@
     <form id="contact-form" class="needs-validation" novalidate>
       <div class="row m-5">
         <div class="col">
-          <input id="first-name" type="text" class="form-control" aria-label="First name" required>
+          <label for="first-name" class="form-label">First Name *</label>
+          <input id="first-name" type="text" class="form-control" required aria-required="true" autocomplete="given-name">
           <div class="invalid-feedback">
             Please provide a valid first name.
-            autocomplete="given name"
           </div>
         </div>
         <div class="col">
-          <input id="last-name" type="text" class="form-control" aria-label="Last name" required>
+          <label for="last-name" class="form-label">Last Name *</label>
+          <input id="last-name" type="text" class="form-control" required aria-required="true" autocomplete="family-name">
           <div class="invalid-feedback">
             Please provide a valid last name.
-            autocomplete="family name"
           </div>
         </div>
       </div>
       <!-- Phone (Optional) -->
       <div class="row m-5">
         <div class="mb-3">
-          <input type="tel" class="form-control" id="phone" placeholder="Phone (Optional)">
+          <label for="phone" class="form-label">Phone (Optional)</label>
+          <input type="tel" class="form-control" id="phone" autocomplete="tel">
         </div>
       </div>
       <div class="row m-5">
         <div class="mb-3">
-          <input id="mail" type="email" class="form-control" placeholder="Email address" aria-describedby="emailHelp" required>
+          <label for="mail" class="form-label">Email Address *</label>
+          <input id="mail" type="email" class="form-control" required aria-required="true" autocomplete="email">
           <div id="emailFeedback" class="invalid-feedback">
             Format should be example@example.com.
           </div>
@@ -85,16 +87,17 @@
       </div>
       <div class="row m-5">
         <div class="mb-3">
-          <textarea class="form-control" id="msg" rows="3" placeholder="Enter your message or comment."></textarea>
+          <label for="msg" class="form-label">Message</label>
+          <textarea class="form-control" id="msg" rows="3" aria-label="Enter your message or comment"></textarea>
         </div>
       </div>
-      <button id="contact-form-button" class="btn btn-primary">
+      <button id="contact-form-button" class="btn btn-primary" type="submit">
         <span id="btnText">Send Message</span>
-        <div id="btnSpinner" class="spinner-border spinner-border-sm text-light ms-2 d-none" role="status"></div>
+        <div id="btnSpinner" class="spinner-border spinner-border-sm text-light ms-2 d-none" role="status" aria-label="Loading"></div>
       </button>
     </form>
-    <a href="https://www.google.com/maps/place/Your+Address" target="_blank">
-      <button class="btn btn-outline-secondary mt-4">Get Directions</button>
+    <a href="https://www.google.com/maps/place/Your+Address" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary mt-4" aria-label="Get directions to our location (opens in new tab)">
+      Get Directions
     </a>
     <!-- End Contact form -->
   </div>
